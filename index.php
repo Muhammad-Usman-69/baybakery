@@ -1,5 +1,6 @@
+<?php include ("partials/_dbconnect.php"); ?>
 <!doctype html>
-<html class="scroll-smooth">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -16,8 +17,7 @@
 <body class="open-sans bg-gray-50 flex flex-col min-h-screen">
     <!-- header -->
     <header class="min-h-31 lg:min-h-18 lg:max-h-18">
-        <nav
-            class="bg-white max-h-31 w-full z-10 flex justify-between items-center transition-all duration-300">
+        <nav class="bg-white max-h-31 w-full z-10 flex justify-between items-center transition-all duration-300">
             <!-- main -->
             <div class="h-full grid place-items-center pl-5 py-2">
                 <a href="/" class="flex items-center space-x-1 w-full">
@@ -25,8 +25,7 @@
                     <span>Bay Bakery</span>
                 </a>
             </div>
-            <div
-                class="mr-5 bg-blue-950 flex justify-center items-center space-x-4 lg:col-span-1 lg:bg-transparent">
+            <div class="mr-5 bg-blue-950 flex justify-center items-center space-x-4 lg:col-span-1 lg:bg-transparent">
                 <!-- account cart -->
                 <a href="cart.html">
                     <img src="images/shopping-cart.png" class="w-7">
@@ -45,28 +44,17 @@
                 class="h-9 absolute left-0 bg-blue-950 transition-all duration-200 hover:bg-yellow-400 active:bg-yellow-500 border-gray-700 border-r cursor-pointer p-1">
         </div>
         <div class="flex scroll-container overflow-x-scroll no-scrollbar">
-            <a href="category.html"
-                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">Gaming</a>
-            <a href="/"
-                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">Groceries</a>
-            <a href="/"
-                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">Chairs</a>
-            <a href="/"
-                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">Desk</a>
-            <a href="/"
-                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">Clothes</a>
-            <a href="/"
-                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">RAM</a>
-            <a href="/"
-                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">Network</a>
-            <a href="/"
-                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">Moniter</a>
-            <a href="/"
-                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">Bags</a>
-            <a href="/"
-                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">Bulbs</a>
-            <a href="/"
-                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">Handkerchief</a>
+            <?php
+            //fetching categories
+            $sql = "SELECT `name` FROM `categories`";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<a href="#' . $row["name"] . '"
+                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">' . $row["name"] . '</a>';
+            }
+            ?>
         </div>
         <div class="min-w-7" onmousedown="scrollRightNav(1)" onmouseup="scrollRightNav(0)">
             <img src="images/carousel/right-arrow.png"
@@ -131,66 +119,60 @@
                             <span class="new-price font-semibold">Rs 3,400</span>
                         </div>
                         <button type="button"
-                            class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">Add To Cart</button>
-                        <button class="group/heart">
-                            <img src="images/heart.png" alt=""
-                                class="absolute bottom-0 right-0  w-6 group-hover/heart:opacity-0">
-                            <img src="images/red heart.png"
-                                class="absolute bottom-0 right-0  w-6 opacity-0 group-hover/heart:opacity-100">
-                        </button>
+                            class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">Add
+                            To Cart</button>
                     </div>
                 </div>
             </div>
-            <!-- <div class="py-5 grid place-items-center">
-        <button type="button"
-            class="px-12 py-2 rounded-md bg-gradient-to-b border-2 text-yellow-400 from-cyan-900 to-cyan-950 hover:from-cyan-950 hover:to-cyan-900 active:from-blue-950 active:to-blue-900 text-sm">VIEW
-            MORE</button>
-    </div> -->
         </div>
 
         <!-- categories product -->
-        <div>
-            <p class="bg-gray-200 text-slate-900 font-bold text-lg p-3">Ipad</p>
+        <?php
+        //fetching categories
+        $sql = "SELECT `name` FROM `categories`";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<div class="scroll-mt-44" id="' . $row["name"] . '">
+            <p class="bg-gray-200 text-slate-900 font-bold text-lg p-3">' . $row["name"] . '</p>
             <div
                 class="category-products gap-4 grid grid-cols-1 py-4 sm:py-5 md:py-6 lg:py-8 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-8 xl:grid-cols-5 xl:gap-10">
                 <!-- product container -->
-                <div class="bg-gray-100 p-3 grid grid-cols-3 gap-2 last:border-b-0 sm:grid-cols-1">
+                <div class="bg-gray-100 p-4 grid grid-cols-3 gap-2 last:border-b-0 sm:grid-cols-1">
                     <!-- img container -->
-                    <div class="relative cursor-pointer group/img">
+                    <a href="product.html" class="cursor-pointer relative">
                         <div class="min-h-34">
                             <img src="product images/Apple-iPad-9th-Generation-10.2-Wi-Fi-64GB-Space-Gray-1.jpg"
-                                class="transition-all group-hover/img:opacity-0 absolute max-h-34 left-1/2 -translate-x-1/2">
-                            <img src="product images/Apple-iPad-9th-Generation-10.2-Wi-Fi-64GB-Space-Gray-8.jpg"
-                                class="transition-all group-hover/img:opacity-100 absolute opacity-0 top-0 max-h-34 left-1/2 -translate-x-1/2">
+                                class="max-h-34">
                         </div>
                         <!-- tag -->
                         <div
                             class="w-10 h-10 absolute top-0 right-0 grid place-items-center text-sm rounded-full bg-red-500 text-white font-bold">
                             <span class="">-24%</span>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- text container -->
                     <div class="col-span-2 space-y-2 relative">
-                        <a href="/" class="font-semibold text-justify text-slate-900">Apple iPad 9th Generation 10.2″
+                        <a href="product.html" class="font-semibold text-justify text-slate-900">Apple iPad 9th
+                            Generation 10.2″
                             (Wi-Fi, 64GB) – Space Gray</a>
                         <div>
                             <span class="old-price text-xs line-through opacity-70">Rs 4,500</span>
                             <span class="new-price font-semibold">Rs 3,400</span>
                         </div>
                         <button type="button"
-                            class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">Add To Cart</button>
-                        <button class="group/heart">
-                            <img src="images/heart.png" alt=""
-                                class="absolute bottom-0 right-0  w-6 group-hover/heart:opacity-0">
-                            <img src="images/red heart.png"
-                                class="absolute bottom-0 right-0  w-6 opacity-0 group-hover/heart:opacity-100">
-                        </button>
+                            class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">Add
+                            To Cart</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div>';
+        }
+        ?>
     </div>
+
 
     <footer class="bg-blue-950 mt-auto">
         <!-- social email -->
