@@ -50,6 +50,7 @@ session_start();
         }
         ?>
     </div>
+
     <!-- header -->
     <header class="min-h-31 lg:min-h-18 lg:max-h-18">
         <nav class="bg-white max-h-31 w-full z-10 flex justify-between items-center transition-all duration-300">
@@ -60,9 +61,9 @@ session_start();
                     <span>Bay Bakery</span>
                 </a>
             </div>
-            <div class="mr-5 bg-blue-950 flex justify-center items-center space-x-4 lg:col-span-1 lg:bg-transparent">
+            <div class="mr-5 flex justify-center items-center space-x-4 lg:col-span-1 bg-transparent">
                 <!-- account cart -->
-                <a href="cart.html">
+                <a href="cart">
                     <img src="images/shopping-cart.png" class="w-7">
                 </a>
                 <?php
@@ -149,6 +150,24 @@ session_start();
                     $old_price = $row["old_price"];
                     $new_price = $row["new_price"];
                     $discount = $row["discount"];
+
+                    $cart = "Add To Cart";
+                    //check if present in cart if logged
+                    if (isset($_SESSION["logged"]) && $_SESSION["logged"] == true) {
+                        $id = $_SESSION["id"];
+                        $sql = "SELECT * FROM `cart` WHERE `user_id` = ? && `product_id` = ?";
+                        $stmt = mysqli_prepare($conn, $sql);
+                        mysqli_stmt_bind_param($stmt, "ss", $id, $product_id);
+                        mysqli_execute($stmt);
+                        $result2 = mysqli_stmt_get_result($stmt);
+                        $num = mysqli_num_rows($result2);
+
+                        //check if user has anything in cart
+                        if ($num != 0) {
+                            $cart = "Already in cart";
+                        }
+                    }
+
                     echo '
                     <!-- product container -->
                     <div class="bg-gray-100 p-4 grid grid-cols-3 gap-2 last:border-b-0 sm:grid-cols-1">
@@ -171,9 +190,8 @@ session_start();
                                 <span class="old-price text-xs line-through opacity-70">Rs ' . $old_price . '</span>
                                 <span class="new-price font-semibold">Rs ' . $old_price . '</span>
                             </div>
-                            <a href="cart/?add=1&id=' . $product_id . '"
-                                class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">Add
-                                To Cart</a>
+                            <a href="cart?add=1&id=' . $product_id . '"
+                                class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">' . $cart . '</a>
                         </div>
                     </div>';
                 }
@@ -209,6 +227,23 @@ session_start();
                 $new_price = $row["new_price"];
                 $discount = $row["discount"];
 
+                $cart = "Add To Cart";
+                //check if present in cart if logged
+                if (isset($_SESSION["logged"]) && $_SESSION["logged"] == true) {
+                    $id = $_SESSION["id"];
+                    $sql = "SELECT * FROM `cart` WHERE `user_id` = ? && `product_id` = ?";
+                    $stmt = mysqli_prepare($conn, $sql);
+                    mysqli_stmt_bind_param($stmt, "ss", $id, $product_id);
+                    mysqli_execute($stmt);
+                    $result3 = mysqli_stmt_get_result($stmt);
+                    $num = mysqli_num_rows($result3);
+
+                    //check if user has anything in cart
+                    if ($num != 0) {
+                        $cart = "Already in cart";
+                    }
+                }
+
                 echo '
                 <!-- product container -->
                 <div class="bg-gray-100 p-4 grid grid-cols-3 gap-2 last:border-b-0 sm:grid-cols-1">
@@ -231,9 +266,8 @@ session_start();
                             <span class="old-price text-xs line-through opacity-70">Rs ' . $old_price . '</span>
                             <span class="new-price font-semibold">Rs ' . $old_price . '</span>
                         </div>
-                        <a href="cart/?add=1&id=' . $product_id . '"
-                            class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">Add
-                            To Cart</a>
+                        <a href="cart?add=1&id=' . $product_id . '"
+                            class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">'.$cart.'</a>
                     </div>
                 </div>';
             }
@@ -275,19 +309,24 @@ session_start();
                 <div>
                     <p class="font-semibold text-lg">PRODUCTS</p>
                     <div class="product-categories py-3 space-y-1 flex flex-col">
-                        <a href="/" class="text-sm hover:underline">Groceries</a>
-                        <a href="/" class="text-sm hover:underline">Clothes</a>
-                        <a href="/" class="text-sm hover:underline">Gaming</a>
-                        <a href="/" class="text-sm hover:underline">Chairs</a>
+                        <?php
+                        //fetching categories
+                        $sql = "SELECT `name` FROM `categories`";
+                        $stmt = mysqli_prepare($conn, $sql);
+                        mysqli_stmt_execute($stmt);
+                        $result = mysqli_stmt_get_result($stmt);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $name = $row["name"];
+                            echo '<a href="#' . $name . '" class="text-sm hover:underline">' . $name . '</a>';
+                        }
+                        ?>
                     </div>
                 </div>
                 <div>
                     <p class="font-semibold text-lg">ACCOUNT</p>
                     <div class="product-categories py-3 space-y-1 flex flex-col">
                         <a href="/" class="text-sm hover:underline">Sign Up</a>
-                        <a href="/" class="text-sm hover:underline">My Account</a>
                         <a href="/" class="text-sm hover:underline">Shopping Cart</a>
-                        <a href="/" class="text-sm hover:underline">Order History</a>
                     </div>
                 </div>
             </div>
