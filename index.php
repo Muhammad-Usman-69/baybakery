@@ -1,9 +1,9 @@
-<?php 
+<?php
 include ("partials/_dbconnect.php");
 session_start();
 ?>
 <!doctype html>
-<html>
+<html class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -71,7 +71,7 @@ session_start();
                 } else {
                     $link = "login";
                 }
-                echo '<a href="'.$link.'">
+                echo '<a href="' . $link . '">
                     <img src="images/user.png" class="w-7">
                 </a>';
                 ?>
@@ -131,44 +131,58 @@ session_start();
     </div>
     <!-- products -->
     <div class="sm:mx-10 sm:my-6 lg:mx-12 lg:my-8 xl:mx-16 xl:my-12">
-        <!-- featured product -->
+        <!-- featured products -->
         <div>
             <p class="bg-gray-200 text-slate-900 font-bold text-lg p-3">Featured Products</p>
             <div
                 class="products grid grid-cols-1 gap-4 py-4 sm:py-5 md:py-6 lg:py-8 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-6 xl:grid-cols-5 xl:gap-10">
-                <!-- product container -->
-                <div class="bg-gray-100 p-4 grid grid-cols-3 gap-2 last:border-b-0 sm:grid-cols-1">
-                    <!-- img container -->
-                    <a href="product.html" class="cursor-pointer relative">
-                        <div class="min-h-34">
-                            <img src="product images/Apple-iPad-9th-Generation-10.2-Wi-Fi-64GB-Space-Gray-1.jpg"
-                                class="max-h-34">
+                <?php
+                //fetching all products
+                $sql = "SELECT * FROM `products`";
+                $stmt = mysqli_prepare($conn, $sql);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $title = $row["title"];
+                    $img = $row["img"];
+                    $product_id = $row["id"];
+                    $old_price = $row["old_price"];
+                    $new_price = $row["new_price"];
+                    $discount = $row["discount"];
+                    echo '
+                    <!-- product container -->
+                    <div class="bg-gray-100 p-4 grid grid-cols-3 gap-2 last:border-b-0 sm:grid-cols-1">
+                        <!-- img container -->
+                        <div class="cursor-pointer relative">
+                            <div class="min-h-34">
+                                <img src="' . $img . '" class="max-h-34">
+                            </div>
+                            <!-- tag -->
+                            <div
+                                class="w-10 h-10 absolute top-0 right-0 grid place-items-center text-sm rounded-full bg-red-500 text-white font-bold">
+                                <span class="">-' . $discount . '%</span>
+                            </div>
                         </div>
-                        <!-- tag -->
-                        <div
-                            class="w-10 h-10 absolute top-0 right-0 grid place-items-center text-sm rounded-full bg-red-500 text-white font-bold">
-                            <span class="">-24%</span>
-                        </div>
-                    </a>
 
-                    <!-- text container -->
-                    <div class="col-span-2 space-y-2 relative">
-                        <a href="product.html" class="font-semibold text-justify text-slate-900">Apple iPad 9th
-                            Generation 10.2″
-                            (Wi-Fi, 64GB) – Space Gray</a>
-                        <div>
-                            <span class="old-price text-xs line-through opacity-70">Rs 4,500</span>
-                            <span class="new-price font-semibold">Rs 3,400</span>
+                        <!-- text container -->
+                        <div class="col-span-2 space-y-2 relative flex flex-col justify-between">
+                            <p class="font-semibold text-justify text-slate-900">' . $title . '</p>
+                            <div>
+                                <span class="old-price text-xs line-through opacity-70">Rs ' . $old_price . '</span>
+                                <span class="new-price font-semibold">Rs ' . $old_price . '</span>
+                            </div>
+                            <a href="cart/?add=1&id=' . $product_id . '"
+                                class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">Add
+                                To Cart</a>
                         </div>
-                        <button type="button"
-                            class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">Add
-                            To Cart</button>
-                    </div>
-                </div>
+                    </div>';
+                }
+                ?>
+
             </div>
         </div>
 
-        <!-- categories product -->
+        <!-- categories wise products -->
         <?php
         //fetching categories
         $sql = "SELECT `name` FROM `categories`";
@@ -176,45 +190,59 @@ session_start();
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         while ($row = mysqli_fetch_assoc($result)) {
-            echo '<div class="scroll-mt-44" id="' . $row["name"] . '">
-            <p class="bg-gray-200 text-slate-900 font-bold text-lg p-3">' . $row["name"] . '</p>
-            <div
-                class="category-products gap-4 grid grid-cols-1 py-4 sm:py-5 md:py-6 lg:py-8 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-8 xl:grid-cols-5 xl:gap-10">
+            $category = $row["name"];
+            //category heading
+            echo '<div class="scroll-mt-44" id="' . $category . '">
+                <p class="bg-gray-200 text-slate-900 font-bold text-lg p-3">' . $category . '</p>
+                <div
+                    class="category-products gap-4 grid grid-cols-1 py-4 sm:py-5 md:py-6 lg:py-8 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-8 xl:grid-cols-5 xl:gap-10">';
+            //fetching all products regarding categories
+            $sql = "SELECT * FROM `products` WHERE `category` = '$category'";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_execute($stmt);
+            $result2 = mysqli_stmt_get_result($stmt);
+            while ($row = mysqli_fetch_assoc($result2)) {
+                $title = $row["title"];
+                $img = $row["img"];
+                $product_id = $row["id"];
+                $old_price = $row["old_price"];
+                $new_price = $row["new_price"];
+                $discount = $row["discount"];
+
+                echo '
                 <!-- product container -->
                 <div class="bg-gray-100 p-4 grid grid-cols-3 gap-2 last:border-b-0 sm:grid-cols-1">
                     <!-- img container -->
-                    <a href="product.html" class="cursor-pointer relative">
+                    <div class="cursor-pointer relative">
                         <div class="min-h-34">
-                            <img src="product images/Apple-iPad-9th-Generation-10.2-Wi-Fi-64GB-Space-Gray-1.jpg"
-                                class="max-h-34">
+                            <img src="' . $img . '" class="max-h-34">
                         </div>
                         <!-- tag -->
                         <div
                             class="w-10 h-10 absolute top-0 right-0 grid place-items-center text-sm rounded-full bg-red-500 text-white font-bold">
-                            <span class="">-24%</span>
-                        </div>
-                    </a>
-
-                    <!-- text container -->
-                    <div class="col-span-2 space-y-2 relative">
-                        <a href="product.html" class="font-semibold text-justify text-slate-900">Apple iPad 9th
-                            Generation 10.2″
-                            (Wi-Fi, 64GB) – Space Gray</a>
-                        <div>
-                            <span class="old-price text-xs line-through opacity-70">Rs 4,500</span>
-                            <span class="new-price font-semibold">Rs 3,400</span>
-                        </div>
-                        <button type="button"
-                            class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">Add
-                            To Cart</button>
+                            <span class="">-' . $discount . '%</span>
                         </div>
                     </div>
-                </div>
+
+                    <!-- text container -->
+                    <div class="col-span-2 space-y-2 relative flex flex-col justify-between">
+                        <p class="font-semibold text-justify text-slate-900">' . $title . '</p>
+                        <div>
+                            <span class="old-price text-xs line-through opacity-70">Rs ' . $old_price . '</span>
+                            <span class="new-price font-semibold">Rs ' . $old_price . '</span>
+                        </div>
+                        <a href="cart/?add=1&id=' . $product_id . '"
+                            class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">Add
+                            To Cart</a>
+                    </div>
+                </div>';
+            }
+            //ending container
+            echo '</div>
             </div>';
         }
         ?>
     </div>
-
 
     <footer class="bg-blue-950 mt-auto">
         <!-- social email -->
