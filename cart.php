@@ -54,12 +54,12 @@ if (isset($_GET["add"]) && isset($_GET["id"]) && $_GET["add"] == 1) {
 //checking if user is deleting from cart
 if (isset($_POST["del"])) {
     //take array
-    $cart_ids = $_POST["del"];
+    $product_ids = $_POST["del"];
     //check the value of each
-    foreach ($cart_ids as $cart_id) {
-        $sql = "DELETE FROM `cart` WHERE `cart_id` = ?";
+    foreach ($product_ids as $product_id) {
+        $sql = "DELETE FROM `cart` WHERE `product_id` = ?";
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "s", $cart_id);
+        mysqli_stmt_bind_param($stmt, "s", $product_id);
         mysqli_stmt_execute($stmt);
     }
     header("location: /cart?&alert=Deleted successful");
@@ -116,7 +116,7 @@ if (isset($_POST["del"])) {
     </div>
     <!-- header -->
     <header class="min-h-18">
-        <nav class="bg-white max-h-18    w-full z-10 flex justify-between items-center transition-all duration-300">
+        <nav class="bg-white max-h-18 w-full z-10 flex justify-between items-center transition-all duration-300">
             <!-- main -->
             <div class="h-full grid place-items-center pl-5 py-2">
                 <a href="/" class="flex items-center space-x-1 w-full">
@@ -215,7 +215,7 @@ if (isset($_POST["del"])) {
                                 echo '<!-- product -->
                                 <div class="item flex items-center p-3 border-b border-x space-x-2">
                                     <!-- product selector -->
-                                    <input type="checkbox" name="del[]" value="' . $cart_id . '" class="select">
+                                    <input type="checkbox" name="del[]" value="' . $product_id . '" class="select">
                                     <!-- product img -->
                                     <img src="' . $img . '"
                                         class="max-h-20 max-w-20">
@@ -255,18 +255,18 @@ if (isset($_POST["del"])) {
             <!-- checkout -->
             <div>
                 <p class="bg-gray-200 text-slate-900 font-bold text-lg p-3">Checkout</p>
-                <form action="partials/_order.php" class="p-4 border space-y-3" method="post">
+                <form action="order" class="p-4 border space-y-3" method="post">
                     <!-- delivery place -->
                     <h3 class="font-semibold"><i class="fa fa-truck text-yellow-500"></i> Delivery</h3>
                     <div action="" class="text-sm space-y-1">
                         <div>
-                            <input type="radio" name="delivery" id="in" class="delivery" value="400"
-                                oninput="updateTotal()" required>
+                            <input type="radio" name="del" id="in" class="delivery" value="400" oninput="updateTotal()"
+                                required>
                             <label for="in">Rs. 400 (Within Multan)</label>
                         </div>
                         <div>
-                            <input type="radio" name="delivery" id="out" class="delivery" value="700"
-                                oninput="updateTotal()" required>
+                            <input type="radio" name="del" id="out" class="delivery" value="700" oninput="updateTotal()"
+                                required>
                             <label for="out">Rs. 700 (Other Cities)</label>
                         </div>
                     </div>
@@ -307,11 +307,12 @@ if (isset($_POST["del"])) {
                     </div>
                     <hr>
                     <!-- hidden inputs -->
+                    <input type="hidden" name="delivery" class="delivery-price" value="">
                     <div class="hidden-inputs">
                     </div>
                     <!-- checkout -->
-                    <button type="submit"
-                        class="w-full bg-blue-950 transition-all duration-200 text-yellow-300 text-sm hover:bg-gray-800 active:bg-slate-900 py-2">Proceed
+                    <button type=" submit"
+                            class="w-full bg-blue-950 transition-all duration-200 text-yellow-300 text-sm hover:bg-gray-800 active:bg-slate-900 py-2">Proceed
                         To Checkout (<span class="totalItem">0</span>)</button>
 
                 </form>

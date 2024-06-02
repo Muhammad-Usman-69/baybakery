@@ -52,8 +52,8 @@ session_start();
     </div>
 
     <!-- header -->
-    <header class="min-h-31 lg:min-h-18 lg:max-h-18">
-        <nav class="bg-white max-h-31 w-full z-10 flex justify-between items-center transition-all duration-300">
+    <header class="min-h-18">
+        <nav class="bg-white max-h-18 w-full z-10 flex justify-between items-center transition-all duration-300">
             <!-- main -->
             <div class="h-full grid place-items-center pl-5 py-2">
                 <a href="/" class="flex items-center space-x-1 w-full">
@@ -185,7 +185,7 @@ session_start();
 
                         <!-- text container -->
                         <div class="col-span-2 space-y-2 relative flex flex-col justify-between">
-                            <p class="font-semibold text-justify text-slate-900">' . $title . '</p>
+                            <p class="font-semibold capitalize text-slate-900">' . $title . '</p>
                             <div>
                                 <span class="old-price text-xs line-through opacity-70">Rs ' . $old_price . '</span>
                                 <span class="new-price font-semibold">Rs ' . $old_price . '</span>
@@ -210,7 +210,7 @@ session_start();
         while ($row = mysqli_fetch_assoc($result)) {
             $category = $row["name"];
             //category heading
-            echo '<div class="scroll-mt-44" id="' . $category . '">
+            echo '<div class="scroll-m-24" id="' . $category . '">
                 <p class="bg-gray-200 text-slate-900 font-bold text-lg p-3">' . $category . '</p>
                 <div
                     class="category-products gap-4 grid grid-cols-1 py-4 sm:py-5 md:py-6 lg:py-8 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-8 xl:grid-cols-5 xl:gap-10">';
@@ -261,13 +261,13 @@ session_start();
 
                     <!-- text container -->
                     <div class="col-span-2 space-y-2 relative flex flex-col justify-between">
-                        <p class="font-semibold text-justify text-slate-900">' . $title . '</p>
+                        <p class="font-semibold capitalize text-slate-900">' . $title . '</p>
                         <div>
                             <span class="old-price text-xs line-through opacity-70">Rs ' . $old_price . '</span>
                             <span class="new-price font-semibold">Rs ' . $old_price . '</span>
                         </div>
                         <a href="cart?add=1&id=' . $product_id . '"
-                            class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">'.$cart.'</a>
+                            class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">' . $cart . '</a>
                     </div>
                 </div>';
             }
@@ -294,7 +294,8 @@ session_start();
             </div>
             <div class="email">
                 <p class="capitalize text-center text-white text-sm">sign up to get latest sale <b>updates</b></p>
-                <form action="" class="flex items-center justify-center py-2 rounded-sm text-sm">
+                <form action="/?alert=Thanks For Signing Up"
+                    class="flex items-center justify-center py-2 rounded-sm text-sm">
                     <input type="search" name="e" id="e" placeholder="Enter Your Email"
                         class="outline-none border-none px-2 py-2 w-48 placeholder:italic" autocomplete="off">
                     <input type="submit" value="Submit"

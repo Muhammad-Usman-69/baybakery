@@ -51,6 +51,7 @@ function updateTotal() {
   let totalQuantity = 0;
   let totalPrice = 0;
   let discount = 0;
+  hiddenContainer.innerHTML = "";
   selectBtn.forEach((btn, index) => {
     let quantity = quantities[index];
     let price = Number(prices[index].innerHTML);
@@ -90,5 +91,7 @@ function updateTotal() {
   //changing discount
   discountPrice.innerHTML = discount;
   //changing delivery price
-  totalDelivery.forEach((total) => (total.value = delPrice));
+  totalDelivery.forEach((total) => {
+    total.value = delPrice;
+  });
 }

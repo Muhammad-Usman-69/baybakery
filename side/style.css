@@ -817,6 +817,14 @@ video {
   cursor: pointer;
 }
 
+.scroll-m-32 {
+  scroll-margin: 8rem;
+}
+
+.scroll-m-24 {
+  scroll-margin: 6rem;
+}
+
 .scroll-mt-44 {
   scroll-margin-top: 11rem;
 }
@@ -1196,6 +1204,10 @@ video {
 
 .font-semibold {
   font-weight: 600;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 .capitalize {

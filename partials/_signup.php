@@ -27,6 +27,12 @@ $email = $_POST["email"];
 $number = $_POST["number"];
 $pass = $_POST["password"];
 
+
+if (substr($number, 0, 1) == 0) {
+    header("location:/signup?error=Wrong Number Format");
+    exit();
+}
+
 //check if any input is empty
 if ($email == "" && $number == "" && $pass == "") {
     header("location: /signupup?error=Invalid cresidentials.");
@@ -59,7 +65,6 @@ if ($num != 0) {
 }
 
 //inserting accont to db
-$number = htmlspecialchars($number, ENT_QUOTES, 'UTF-8');
 $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
 $pass = htmlspecialchars($pass, ENT_QUOTES, 'UTF-8');
 $pass_hash = password_hash($pass, PASSWORD_DEFAULT);

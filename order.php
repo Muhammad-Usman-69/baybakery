@@ -1,10 +1,10 @@
 <?php
 //check if req is fost
-/* if ($_SERVER["REQUEST_METHOD"] != "POST") {
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
     header("location: /signup?error=Access denied. Please try again later");
     exit();
 }
- */
+
 session_start();
 //checking if logged
 if (!isset($_SESSION["logged"]) && $_SESSION["logged"] != true) {
@@ -12,7 +12,7 @@ if (!isset($_SESSION["logged"]) && $_SESSION["logged"] != true) {
     exit();
 }
 
-include ("_dbconnect.php");
+include ("partials/_dbconnect.php");
 
 //str for order id
 function random_str(
@@ -41,8 +41,6 @@ $total = $_POST["totalprice"];
 $delivery = $_POST["delivery"];
 $status = 0;
 
-echo var_dump($delivery);
-
 //initiaing for order detials
 $details = "";
 
@@ -57,30 +55,27 @@ foreach ($items as $item) {
         $title = $row["title"];
         $price = $row["new_price"];
         $id = $row["id"];
-        $details .= "1x ($id) $title Rs.$price \n";
+        $details .= "1x ($id) $title (Rs. $price) \n\n";
     }
 
     //removing from cart
-    /* $sql = "DELETE FROM `cart` WHERE `product_id` = ?";
+    $sql = "DELETE FROM `cart` WHERE `product_id` = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "s", $item);
-    mysqli_stmt_execute($stmt); */
+    mysqli_stmt_execute($stmt);
 }
 
-
-
 //inserting order to db
-/* $sql = "INSERT INTO `orders` (`id`, `details`, `time`, `userid`, `method`, `price`, `delivery_price`, `status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO `orders` (`id`, `details`, `time`, `userid`, `method`, `price`, `delivery_price`, `status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "sssssssi", $order_id, $details, $time, $userid, $method, $total, $delivery, $status);
-$result = mysqli_stmt_execute($stmt); */
+$result = mysqli_stmt_execute($stmt);
 
 //creating message
-$message = $details . "Order ID: " . $order_id . "\nDelivery: Rs. " . $delivery . " \nTotal: Rs. " . $total . "\n\nThanks for shopping with us\nRegards, BayBakery";
-echo $message;
+$message = "Your order has been placed\n\n" . $details . "Order ID: " . $order_id . "\nDelivery: Rs. " . $delivery . " \nTotal: Rs. " . $total . " \nPayment Method: " . $method . " \n\nThanks for shopping with us\nRegards, BayBakery";
 
-header("content-type:json");
+//sending message
+include ("sms.php");
 
-// header("location:/sms?message=" . $message);
-// exit();
-// header("location:/sms?alert=Your Order has been placed successfully. You will recieve a message soon.");
+header("location:/cart?alert=Your order has been placed. You will recieve a message soon.");
+exit();
