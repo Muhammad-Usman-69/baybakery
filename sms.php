@@ -6,7 +6,7 @@ use Infobip\Model\SmsDestination;
 use Infobip\Model\SmsTextualMessage;
 use Infobip\Model\SmsAdvancedTextualRequest;
 
-$number = "+923176535345";
+$number = "+92-3176535345";
 $message = "Hey from bay bakery";
 $base_url = "y3m5nj.api.infobip.com";
 $api_key = "a8b903ad34df83d00e5e1f566f076ad7-dd3d8000-b9b7-40a0-9a1a-73d5bf42b38b";
