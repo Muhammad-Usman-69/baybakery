@@ -1,5 +1,4 @@
 <?php
-session_start();
 //checking if logged
 if (!isset($_SESSION["logged"]) && $_SESSION["logged"] != true) {
     header("location:/?error=Not logged in");
@@ -21,8 +20,8 @@ mysqli_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 $number = $row["number"];
-$base_url = "y3m5nj.api.infobip.com";
-$api_key = "a8b903ad34df83d00e5e1f566f076ad7-dd3d8000-b9b7-40a0-9a1a-73d5bf42b38b";
+$base_url = "ggmgk6.api.infobip.com";
+$api_key = "e4c2e7077cbe323b5514e473bb7d9601-bc633653-4f5c-43e1-90bc-767fb71e5e74";
 
 
 $configuration = new Configuration(host: $base_url, apiKey: $api_key);
