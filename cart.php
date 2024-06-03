@@ -138,6 +138,11 @@ if (isset($_POST["del"])) {
                 echo '<a href="' . $link . '">
                     <img src="images/user.png" class="w-7">
                 </a>';
+                if (isset($_SESSION["status"]) && $_SESSION["status"] == "admin") {
+                    echo '<a href="admin">
+                        <img src="images/support.png" class="w-7">
+                    </a>';
+                }
                 ?>
             </div>
         </nav>
@@ -269,13 +274,18 @@ if (isset($_POST["del"])) {
                                 required>
                             <label for="out">Rs. 700 (Other Cities)</label>
                         </div>
+                        <div>
+                        <input type="text" name="location" id="location" placeholder="Your Address"
+                        class="outline-none text-black border px-2 py-2 w-full"
+                        autocomplete="off" required>
+                        </div>
                     </div>
                     <hr>
                     <!-- payment method -->
                     <h3 class="font-semibold"><i class="fa fa-wallet text-amber-950"></i> Payment Method</h3>
                     <div class="text-sm space-y-1">
                         <div>
-                            <input type="radio" name="method" id="op" value="JazzCash" required>
+                            <input type="radio" name="method" id="op" value="Online" required>
                             <label for="op">Online Payment</label>
                         </div>
                         <div>
@@ -312,7 +322,7 @@ if (isset($_POST["del"])) {
                     </div>
                     <!-- checkout -->
                     <button type=" submit"
-                            class="w-full bg-blue-950 transition-all duration-200 text-yellow-300 text-sm hover:bg-gray-800 active:bg-slate-900 py-2">Proceed
+                        class="w-full bg-blue-950 transition-all duration-200 text-yellow-300 text-sm hover:bg-gray-800 active:bg-slate-900 py-2">Proceed
                         To Checkout (<span class="totalItem">0</span>)</button>
 
                 </form>

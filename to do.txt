@@ -1,0 +1,4 @@
+order magnment
+create order detail for merchant
+password reset
+option for dellivery address

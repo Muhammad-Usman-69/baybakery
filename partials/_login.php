@@ -40,6 +40,11 @@ if (password_verify($pass, $row["password"])) {
     session_start();
     $_SESSION["logged"] = true;
     $_SESSION["id"] = $id;
+    $_SESSION["status"] = "user";
+    //check if admin
+    if ($row["admin"] == 1) {
+        $_SESSION["status"] = "admin";
+    }
     header("location: /?alert=You are logged in");
     exit();
 } else {

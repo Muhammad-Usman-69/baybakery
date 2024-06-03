@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2024 at 01:30 PM
+-- Generation Time: Jun 03, 2024 at 11:47 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -67,6 +67,7 @@ CREATE TABLE `orders` (
   `method` text NOT NULL,
   `price` text NOT NULL,
   `delivery_price` text NOT NULL,
+  `delivery_location` text NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -74,9 +75,9 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `details`, `time`, `userid`, `method`, `price`, `delivery_price`, `status`) VALUES
-('6fLdqPV8iPK4', '1x (0t2u) Croissants Rs.800 \n', '04:26:25', 'STXGRaNZ', 'CashOnDelivery', '1200', '400', 0),
-('EM2ptxG9PaeF', '1x (lZkT) Mix Cookies (Rs. 2080) \n\n', '04:29:14', 'STXGRaNZ', 'CashOnDelivery', '2780', '700', 0);
+INSERT INTO `orders` (`id`, `details`, `time`, `userid`, `method`, `price`, `delivery_price`, `delivery_location`, `status`) VALUES
+('nhJIPSCdeUnx', '1x (M9dz) Soft Frosted Sugar Cookies (Rs. 1899) \n\n1x (0t2u) Croissants (Rs. 800) \n\n', '02:31:01', 'STXGRaNZ', 'Online', '3499', '800', 'AppTechs', 0),
+('yfutrROmDaFL', '1x (sBmF) Classic White Sandwich Bread (Rs. 200) \n\n', '01:05:35', 'STXGRaNZ', 'Online', '600', '400', 'apptech', 1);
 
 -- --------------------------------------------------------
 
@@ -121,15 +122,16 @@ CREATE TABLE `users` (
   `id` varchar(8) NOT NULL,
   `email` text NOT NULL,
   `number` text NOT NULL,
-  `password` text NOT NULL
+  `password` text NOT NULL,
+  `admin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `number`, `password`) VALUES
-('STXGRaNZ', 'usmansaleem4446996@gmail.com', '+923176535345', '$2y$10$HwEwS8r5/fRaTg0fv/fqZuy6knfpagt6qZ/hZBzOmehLNi1Ly10Le');
+INSERT INTO `users` (`id`, `email`, `number`, `password`, `admin`) VALUES
+('STXGRaNZ', 'usmansaleem4446996@gmail.com', '+923176535345', '$2y$10$HwEwS8r5/fRaTg0fv/fqZuy6knfpagt6qZ/hZBzOmehLNi1Ly10Le', 1);
 
 --
 -- Indexes for dumped tables

@@ -73,8 +73,13 @@ session_start();
                     $link = "login";
                 }
                 echo '<a href="' . $link . '">
-                    <img src="images/user.png" class="w-7">
-                </a>';
+                        <img src="images/user.png" class="w-7">
+                    </a>';
+                if (isset($_SESSION["status"]) && $_SESSION["status"] == "admin") {
+                    echo '<a href="admin">
+                        <img src="images/support.png" class="w-7">
+                    </a>';
+                }
                 ?>
             </div>
         </nav>
