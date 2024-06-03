@@ -10,7 +10,7 @@ $email = $_POST["email"];
 $pass = $_POST["password"];
 
 //checking if email and pass are empty
-if ($email == "" && $pass == "") {
+if ($email == "" || $pass == "") {
     header("location: /login?error=Invalid cresidentials");
     exit();
 }

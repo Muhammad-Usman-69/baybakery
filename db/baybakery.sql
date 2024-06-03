@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2024 at 11:47 AM
+-- Generation Time: Jun 03, 2024 at 01:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -131,7 +131,25 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `number`, `password`, `admin`) VALUES
-('STXGRaNZ', 'usmansaleem4446996@gmail.com', '+923176535345', '$2y$10$HwEwS8r5/fRaTg0fv/fqZuy6knfpagt6qZ/hZBzOmehLNi1Ly10Le', 1);
+('STXGRaNZ', 'usmansaleem4446996@gmail.com', '+923176535345', '$2y$10$Dqx2JEvCNHW5bcOYCCiNsudNhSsKSc5q55vnJnwOBT8Lqmlgerle2', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `verify`
+--
+
+CREATE TABLE `verify` (
+  `id` varchar(8) NOT NULL,
+  `code` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `verify`
+--
+
+INSERT INTO `verify` (`id`, `code`) VALUES
+('STXGRaNZ', '');
 
 --
 -- Indexes for dumped tables
@@ -165,6 +183,12 @@ ALTER TABLE `products`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `verify`
+--
+ALTER TABLE `verify`
   ADD PRIMARY KEY (`id`);
 
 --

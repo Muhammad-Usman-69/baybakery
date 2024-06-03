@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["*.php"],
+  content: ["*.php", "partials/_email.php"],
   theme: {
     extend: {
       maxHeight: {
@@ -13,6 +13,9 @@ module.exports = {
         34: "8.5rem",
         18: "4.5rem",
       },
+      animation: {
+        'spin-slow': 'spin 4s linear infinite',
+      }
     },
   },
   plugins: [],

@@ -34,7 +34,7 @@ if (substr($number, 0, 1) == 0) {
 }
 
 //check if any input is empty
-if ($email == "" && $number == "" && $pass == "") {
+if ($email == "" || $number == "" || $pass == "") {
     header("location: /signupup?error=Invalid cresidentials.");
     exit();
 }
@@ -71,6 +71,12 @@ $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
 $sql = "INSERT INTO `users` (`id`, `email`, `number`, `password`) VALUES (?, ?, ?, ?)";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "ssss", $id, $email, $number, $pass_hash);
+$result = mysqli_stmt_execute($stmt);
+
+//inserting into verify
+$sql = "INSERT INTO `verify` (`id`) VALUES (?)";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, "s", $id);
 $result = mysqli_stmt_execute($stmt);
 
 //checking if error occured
