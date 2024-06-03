@@ -1,4 +1,8 @@
-order magnment
-create order detail for merchant
-password reset
-option for dellivery address
+add your name in signup {done}
+id should be name (if id is already in use then add random num to it) {done}
+change delivery charges to one {done}
+add insert, edit of product
+add users
+change order id to word-num
+add thank you page
+add increasing quantity funcationability

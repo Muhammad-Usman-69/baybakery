@@ -39,6 +39,7 @@ $id = $row["id"];
 if (password_verify($pass, $row["password"])) {
     session_start();
     $_SESSION["logged"] = true;
+    $_SESSION["name"] = $row["name"];
     $_SESSION["id"] = $id;
     $_SESSION["status"] = "user";
     //check if admin

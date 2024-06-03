@@ -70,9 +70,7 @@ $id = $_GET["orderid"];
                             onclick="window.location.assign(`partials/_mark?mark=0&orderid=' . $id . '`)">
                             <img src="images/close.png" class="w-10 h-10 p-1 border-2 border-red-700 rounded-full">
                         </button>
-                        <!-- delete -->
-                        <button class="py-2 px-4 rounded-md bg-blue-600 active:bg-blue-800 text-white shadow-md z-20"
-                            onclick="window.location.assign(`partials/_cancelorder?orderid=' . $id . '`)">Cancel</button>
+                        
                     </div>
                 </div>';
         } else {
@@ -87,7 +85,7 @@ $id = $_GET["orderid"];
                     </button>
                     <!-- delete -->
                     <button class="py-2 px-4 rounded-md bg-blue-600 active:bg-blue-800 text-white shadow-md z-20"
-                        onclick="window.location.assign(`partials/_cancelorder?id=' . $id . '`)">Delete</button>
+                        onclick="window.location.assign(`partials/_cancelorder?id=' . $id . '`)">Cancel</button>
                 </div>
             </div>';
         }

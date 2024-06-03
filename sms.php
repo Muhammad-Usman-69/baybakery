@@ -20,8 +20,8 @@ mysqli_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 $number = $row["number"];
-$base_url = "ggmgk6.api.infobip.com";
-$api_key = "e4c2e7077cbe323b5514e473bb7d9601-bc633653-4f5c-43e1-90bc-767fb71e5e74";
+$base_url = "dknke1.api.infobip.com";
+$api_key = "f01319ac328f735534c86a0c58462e49-846c2417-4d05-4073-b084-d3e1ae99fcea";
 
 
 $configuration = new Configuration(host: $base_url, apiKey: $api_key);

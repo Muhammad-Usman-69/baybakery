@@ -7,6 +7,12 @@ if (!isset($_SESSION["logged"]) && $_SESSION["logged"] != true) {
     exit();
 }
 
+//check if user is admin
+if ($_SESSION["status"] == "admin") {
+    header("location: /?error=Admin can't access cart");
+    exit();
+}
+
 $user_id = $_SESSION["id"];
 
 //checking if user is adding to cart
@@ -275,9 +281,8 @@ if (isset($_POST["del"])) {
                             <label for="out">Rs. 700 (Other Cities)</label>
                         </div>
                         <div>
-                        <input type="text" name="location" id="location" placeholder="Your Address"
-                        class="outline-none text-black border px-2 py-2 w-full"
-                        autocomplete="off" required>
+                            <input type="text" name="location" id="location" minlength="15" placeholder="Your Address"
+                                class="outline-none text-black border px-2 py-2 w-full" autocomplete="off" required>
                         </div>
                     </div>
                     <hr>
@@ -318,7 +323,9 @@ if (isset($_POST["del"])) {
                     <hr>
                     <!-- hidden inputs -->
                     <input type="hidden" name="delivery" class="delivery-price" value="">
-                    <div class="hidden-inputs">
+                    <div class="hidden-item-inputs">
+                    </div>
+                    <div class="hidden-num-inputs">
                     </div>
                     <!-- checkout -->
                     <button type=" submit"
@@ -377,8 +384,8 @@ if (isset($_POST["del"])) {
                 <div>
                     <p class="font-semibold text-lg">ACCOUNT</p>
                     <div class="product-categories py-3 space-y-1 flex flex-col">
-                        <a href="/" class="text-sm hover:underline">Sign Up</a>
-                        <a href="/" class="text-sm hover:underline">Shopping Cart</a>
+                        <a href="signup" class="text-sm hover:underline">Sign Up</a>
+                        <a href="cart" class="text-sm hover:underline">Shopping Cart</a>
                     </div>
                 </div>
             </div>

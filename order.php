@@ -85,9 +85,6 @@ if (!$result) {
 //creating message
 $message = "Your order has been placed\n\n" . $details . "Order ID: " . $order_id . "\nDelivery: Rs. " . $delivery . " \nTotal: Rs. " . $total . " \nPayment Method: " . $method . " \nLocation: " . $location . " \n\nThanks for shopping with us\nRegards, BayBakery";
 
-echo $message;
-
-header("content-type:json");
 //sending message
 // include ("sms.php");
 

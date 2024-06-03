@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2024 at 01:07 PM
+-- Generation Time: Jun 03, 2024 at 02:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,9 +29,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `cart` (
   `cart_id` varchar(5) NOT NULL,
-  `user_id` varchar(8) NOT NULL,
+  `user_id` varchar(50) NOT NULL,
   `product_id` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `user_id`, `product_id`) VALUES
+('lXGgs', 'Muhammad Usman 001', 'M9dz'),
+('U8NNj', 'Muhammad Usman 001', 'm6F9');
 
 -- --------------------------------------------------------
 
@@ -63,7 +71,7 @@ CREATE TABLE `orders` (
   `id` varchar(12) NOT NULL,
   `details` text NOT NULL,
   `time` time NOT NULL,
-  `userid` varchar(8) NOT NULL,
+  `userid` varchar(50) NOT NULL,
   `method` text NOT NULL,
   `price` text NOT NULL,
   `delivery_price` text NOT NULL,
@@ -76,7 +84,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `details`, `time`, `userid`, `method`, `price`, `delivery_price`, `delivery_location`, `status`) VALUES
-('nhJIPSCdeUnx', '1x (M9dz) Soft Frosted Sugar Cookies (Rs. 1899) \n\n1x (0t2u) Croissants (Rs. 800) \n\n', '02:31:01', 'STXGRaNZ', 'Online', '3499', '800', 'AppTechs', 0),
+('3RoS8QbRiUxO', '1x (tGO7) Black Forest Cake (Rs. 1400) \n\n1x (RYZb) Moist Chocolate Cake (Rs. 3900) \n\n1x (sBmF) Classic White Sandwich Bread (Rs. 200) \n\n', '04:47:18', 'FxqaozED', 'Online', '6700', '1200', 'Apptechz', 1),
+('40RuYbOQUAdX', '1x (M9dz) Soft Frosted Sugar Cookies (Rs. 1899) \n\n', '04:35:04', 'STXGRaNZ', 'Online', '2299', '400', 'appstech', 0),
+('HALW5oU5vMjN', '1x (m6F9) brown butter chocolate chip cookies (Rs. 1300) \n\n', '04:36:17', 'MhT0CWZb', 'CashOnDelivery', '1700', '400', 'appstech', 0),
+('w1NsO5f0BM9z', '1x (m6F9) brown butter chocolate chip cookies (Rs. 1300) \n\n1x (sBmF) Classic White Sandwich Bread (Rs. 200) \n\n1x (otSp) Soft Bread Machine Garlic Breadsticks Recipe (Rs. 499) \n\n', '04:34:15', 'MhT0CWZb', 'Online', '3199', '1200', 'Apptech, Behria Town Multan Near Mall of Multan, Multan', 0),
 ('yfutrROmDaFL', '1x (sBmF) Classic White Sandwich Bread (Rs. 200) \n\n', '01:05:35', 'STXGRaNZ', 'Online', '600', '400', 'apptech', 1);
 
 -- --------------------------------------------------------
@@ -119,7 +130,8 @@ INSERT INTO `products` (`id`, `title`, `img`, `old_price`, `new_price`, `categor
 --
 
 CREATE TABLE `users` (
-  `id` varchar(8) NOT NULL,
+  `id` varchar(50) NOT NULL,
+  `name` text NOT NULL,
   `email` text NOT NULL,
   `number` text NOT NULL,
   `password` text NOT NULL,
@@ -130,8 +142,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `number`, `password`, `admin`) VALUES
-('STXGRaNZ', 'usmansaleem4446996@gmail.com', '+923176535345', '$2y$10$Dqx2JEvCNHW5bcOYCCiNsudNhSsKSc5q55vnJnwOBT8Lqmlgerle2', 1);
+INSERT INTO `users` (`id`, `name`, `email`, `number`, `password`, `admin`) VALUES
+('Muhammad Usman', 'Muhammad Usman', 'usmansaleem4446996@gmail.com', '+92 3176535345', '$2y$10$SAi1d5FCXzLoco9BGPh.VePpK8PPdo3iSEtKy/DXp.uQCpdsxW1Rq', 1),
+('Muhammad Usman 001', 'Muhammad Usman', 'mrfear4646@gmail.com', '+92 3269165351', '$2y$10$Bs.b8eyW5z4lDi8ezeIigOEA/4PfpSWrSdXWa0sgxQXtFmian0pZi', 0);
 
 -- --------------------------------------------------------
 
@@ -140,7 +153,7 @@ INSERT INTO `users` (`id`, `email`, `number`, `password`, `admin`) VALUES
 --
 
 CREATE TABLE `verify` (
-  `id` varchar(8) NOT NULL,
+  `id` varchar(50) NOT NULL,
   `code` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -149,7 +162,8 @@ CREATE TABLE `verify` (
 --
 
 INSERT INTO `verify` (`id`, `code`) VALUES
-('STXGRaNZ', '');
+('Muhammad Usman', ''),
+('Muhammad Usman 001', '');
 
 --
 -- Indexes for dumped tables

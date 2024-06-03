@@ -5,10 +5,13 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
     exit();
 }
 
+//adding db
+include ("_dbconnect.php");
+
 //str for id
 function random_str(
     $length,
-    $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    $keyspace = '0123456789'
 ) {
     $str = '';
     $max = mb_strlen($keyspace, '8bit') - 1;
@@ -22,25 +25,35 @@ function random_str(
 }
 
 //taking diff values
-$id = random_str(8);
+$name = $_POST["name"];
 $email = $_POST["email"];
 $number = $_POST["number"];
 $pass = $_POST["password"];
+$id = $name;
 
+//check if name is in use
+$sql = "SELECT * FROM `users` WHERE `name` = ?";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, "s", $name);
+mysqli_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$num = mysqli_num_rows($result);
+if ($num != 0) {
+    $id = $name . " " . random_str(3);
+}
 
-if (substr($number, 0, 1) == 0) {
+if (substr($number, 0, 3) != "+92") {
     header("location:/signup?error=Wrong Number Format");
     exit();
 }
 
 //check if any input is empty
-if ($email == "" || $number == "" || $pass == "") {
+if ($name == "" || $email == "" || $number == "" || $pass == "") {
     header("location: /signupup?error=Invalid cresidentials.");
     exit();
 }
 
 //check if email already exists
-include ("_dbconnect.php");
 $sql = "SELECT * FROM `users` WHERE `email` = ?";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "s", $email);
@@ -68,9 +81,9 @@ if ($num != 0) {
 $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
 $pass = htmlspecialchars($pass, ENT_QUOTES, 'UTF-8');
 $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
-$sql = "INSERT INTO `users` (`id`, `email`, `number`, `password`) VALUES (?, ?, ?, ?)";
+$sql = "INSERT INTO `users` (`id`, `name`, `email`, `number`, `password`) VALUES (?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "ssss", $id, $email, $number, $pass_hash);
+mysqli_stmt_bind_param($stmt, "sssss", $id, $name, $email, $number, $pass_hash);
 $result = mysqli_stmt_execute($stmt);
 
 //inserting into verify

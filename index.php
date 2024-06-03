@@ -193,7 +193,7 @@ session_start();
                             <p class="font-semibold capitalize text-slate-900">' . $title . '</p>
                             <div>
                                 <span class="old-price text-xs line-through opacity-70">Rs ' . $old_price . '</span>
-                                <span class="new-price font-semibold">Rs ' . $old_price . '</span>
+                                <span class="new-price font-semibold">Rs ' . $new_price . '</span>
                             </div>
                             <a href="cart?add=1&id=' . $product_id . '"
                                 class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">' . $cart . '</a>
@@ -269,7 +269,7 @@ session_start();
                         <p class="font-semibold capitalize text-slate-900">' . $title . '</p>
                         <div>
                             <span class="old-price text-xs line-through opacity-70">Rs ' . $old_price . '</span>
-                            <span class="new-price font-semibold">Rs ' . $old_price . '</span>
+                            <span class="new-price font-semibold">Rs ' . $new_price . '</span>
                         </div>
                         <a href="cart?add=1&id=' . $product_id . '"
                             class="rounded-sm bg-gradient-to-t from-blue-950 to-blue-900 text-sm text-white px-3 py-1.5 hover:from-cyan-950 hover:to-cyan-900 active:bg-gradient-to-b">' . $cart . '</a>
@@ -331,8 +331,8 @@ session_start();
                 <div>
                     <p class="font-semibold text-lg">ACCOUNT</p>
                     <div class="product-categories py-3 space-y-1 flex flex-col">
-                        <a href="/" class="text-sm hover:underline">Sign Up</a>
-                        <a href="/" class="text-sm hover:underline">Shopping Cart</a>
+                        <a href="signup" class="text-sm hover:underline">Sign Up</a>
+                        <a href="cart" class="text-sm hover:underline">Shopping Cart</a>
                     </div>
                 </div>
             </div>
