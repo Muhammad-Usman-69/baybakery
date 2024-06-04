@@ -163,7 +163,7 @@ if (isset($_POST["del"])) {
         <div class="flex scroll-container overflow-x-scroll no-scrollbar">
             <?php
             //fetching categories
-            $sql = "SELECT `name` FROM `categories`";
+            $sql = "SELECT `name` FROM `categories` WHERE `status` = 1";
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
@@ -185,7 +185,7 @@ if (isset($_POST["del"])) {
             <p class="space-x-3">
                 <a href="/" class="text-cyan-600 font-bold underline">Home</a>
                 <span class="opacity-70">/</span>
-                <a href="/" class="text-red-600 font-bold underline">Cart</a>
+                <a href="cart" class="text-red-600 font-bold underline">Cart</a>
             </p>
         </div>
         <div class="space-y-5 lg:grid lg:grid-cols-3 lg:gap-5 lg:space-y-0">
@@ -213,47 +213,54 @@ if (isset($_POST["del"])) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             $product_id = $row["product_id"];
                             $cart_id = $row["cart_id"];
-                            $sql = "SELECT * FROM `products` WHERE `id` = ?";
+                            $sql = "SELECT * FROM `products` WHERE `id` = ? AND `status` = 1";
                             $stmt = mysqli_prepare($conn, $sql);
                             mysqli_stmt_bind_param($stmt, "s", $product_id);
                             mysqli_execute($stmt);
                             $result2 = mysqli_stmt_get_result($stmt);
-                            while ($row = mysqli_fetch_assoc($result2)) {
-                                $img = $row["img"];
-                                $title = $row["title"];
-                                $old_price = $row["old_price"];
-                                $new_price = $row["new_price"];
-                                echo '<!-- product -->
-                                <div class="item flex items-center p-3 border-b border-x space-x-2">
-                                    <!-- product selector -->
-                                    <input type="checkbox" name="del[]" value="' . $product_id . '" class="select">
-                                    <!-- product img -->
-                                    <img src="' . $img . '"
-                                        class="max-h-20 max-w-20">
-                                    <!-- product info -->
-                                    <div class="space-y-1 flex flex-col w-full">
-                                        <!-- product title -->
-                                        <p class="text-sm">' . $title . '</p>
-                                        <!-- product quantity and price -->
-                                        <div class="flex justify-between items-center">
-                                            <!-- price -->
-                                            <div>
-                                                <p class="text-xs line-through opacity-70">Rs. <span class="old-price">' . $old_price . '</span>
-                                                </p>
-                                                <p class="new-price font-semibold text-red-600">Rs. <span class="price">' . $new_price . '</span>
-                                                </p>
-                                            </div>
-                                            <!-- quantity -->
-                                            <div class="quantity flex items-center space-x-2 py-2 text-white">
-                                                <button type="button"
-                                                    class="minus bg-blue-950 text-yellow-400 w-8 h-8 active:bg-blue-900 text-xl">&minus;</button>
-                                                <p class="product-quantity text-black">1</p>
-                                                <button type="button"
-                                                    class="plus bg-blue-950 text-yellow-400 w-8 h-8 active:bg-blue-900 text-xl">&plus;</button>
+                            $num = mysqli_num_rows($result2);
+                            //checking for active product
+                            if ($num != 0) {
+                                while ($row = mysqli_fetch_assoc($result2)) {
+                                    //check if category is active
+                                    $img = $row["img"];
+                                    $title = $row["title"];
+                                    $old_price = $row["old_price"];
+                                    $new_price = $row["new_price"];
+                                    echo '<!-- product -->
+                                    <div class="item flex items-center p-3 border-b border-x space-x-2">
+                                        <!-- product selector -->
+                                        <input type="checkbox" name="del[]" value="' . $product_id . '" class="select">
+                                        <!-- product img -->
+                                        <img src="' . $img . '"
+                                            class="max-h-20 max-w-20">
+                                        <!-- product info -->
+                                        <div class="space-y-1 flex flex-col w-full">
+                                            <!-- product title -->
+                                            <p class="text-sm">' . $title . '</p>
+                                            <!-- product quantity and price -->
+                                            <div class="flex justify-between items-center">
+                                                <!-- price -->
+                                                <div>
+                                                    <p class="text-xs line-through opacity-70">Rs. <span class="old-price">' . $old_price . '</span>
+                                                    </p>
+                                                    <p class="new-price font-semibold text-red-600">Rs. <span class="price">' . $new_price . '</span>
+                                                    </p>
+                                                </div>
+                                                <!-- quantity -->
+                                                <div class="quantity flex items-center space-x-2 py-2 text-white">
+                                                    <button type="button"
+                                                        class="minus bg-blue-950 text-yellow-400 w-8 h-8 active:bg-blue-900 text-xl">&minus;</button>
+                                                    <p class="product-quantity text-black">1</p>
+                                                    <button type="button"
+                                                        class="plus bg-blue-950 text-yellow-400 w-8 h-8 active:bg-blue-900 text-xl">&plus;</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>';
+                                    </div>';
+                                }
+                            } else {
+                                echo '<p class="text-center py-3 text-lg border">Nothing in Cart</p>';
                             }
                         }
                     } else {
@@ -294,7 +301,7 @@ if (isset($_POST["del"])) {
                             <label for="op">Online Payment</label>
                         </div>
                         <div>
-                            <input type="radio" name="method" id="cod" value="CashOnDelivery" required>
+                            <input type="radio" name="method" id="cod" value="COD" required>
                             <label for="cod">Cash On Delivery</label>
                         </div>
                     </div>

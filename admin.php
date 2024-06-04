@@ -191,12 +191,15 @@ include ("partials/_dbconnect.php");
     </div>
 
     <!-- category container -->
-    <div class="m-4 p-4 bg-white rounded-md shadow-md">
+    <div class="m-4 p-4 bg-white rounded-md shadow-md space-y-4">
         <table class="w-full shadow-md">
             <thead>
                 <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
                     <th scope="col" class="p-4">Category Name</th>
-                    <th scope="col" class="p-4">Delete Category</th>
+                    <th scope="col" class="p-4">Status</th>
+                    <th scope="col" class="p-4">Change</th>
+                    <th scope="col" class="p-4">Delete</th>
+                    <th scope="col" class="p-4">Change Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -209,19 +212,55 @@ include ("partials/_dbconnect.php");
                 $result = mysqli_stmt_get_result($stmt);
 
                 while ($row = mysqli_fetch_assoc($result)) {
-                    //_changeuserstatus
+                    if ($row["status"] == 1) {
+                        $status = "Active";
+                        $change_status = "Unactive";
+                        $change_status_id = 0;
+                    } else {
+                        $status = "Unactive";
+                        $change_status = "Active";
+                        $change_status_id = 1;
+                    }
                     //echoing data
                     echo '<tr class="border-b-gray-500 border-b bg-[#F8F8F8] last:border-b-0">
-                        <td class="text-center py-3">' . $row["name"] . '</td>
-                        <td class="flex items-center justify-center py-3">
-                            <button onclick="window.location.assign(`partials/_deletecategory?name=' . $row["name"] . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Delete</button>
-                        </td>
+                        <form action="partials/_updatecategory" method="post">
+                            <td class="text-center py-3">
+                                <input name="category" value="' . $row["name"] . '" class="bg-transparent text-center">
+                            </td>
+                            <input type="hidden" value="' . $row["name"] . '" name="old_name">
+                            <td class="text-center py-3">' . $status . '</td>
+                            <td class="py-3">
+                                <div class="grid place-items-center">
+                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Change</button>
+                                </div>
+                            </td>
+                            <td class="py-3">
+                                <div class="grid place-items-center">
+                                    <button type="button" onclick="window.location.assign(`partials/_deletecategory?name=' . $row["name"] . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Delete</button>
+                                </div>
+                            </td>
+                            <td class="py-3">
+                                <div class="grid place-items-center">
+                                    <button type="button" onclick="window.location.assign(`partials/_changecategorystatus?name=' . $row["name"] . '&status=' . $change_status_id . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center m-auto">' . $change_status . '</button>
+                                </div>
+                            </td>
+                        </form>
                     </tr>';
                 }
                 ?>
             </tbody>
         </table>
+        <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center" action="partials/_insertcategory" method="post">
+            <input type="text" name="name" class="bg-transparent outline-none w-full inline-block p-3" placeholder="Category Name" minlength="4">
+            <button type="Submit" href="/"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-3">Insert</button>
+        </form>
     </div>
+
+    <!-- insert category container -->
+    <!-- <div class="m-4 p-4 bg-white rounded-md shadow-md">
+        
+    </div> -->
 
     <!-- product container -->
     <div class="m-4 p-4 bg-white rounded-md shadow-md">
@@ -284,13 +323,19 @@ include ("partials/_dbconnect.php");
                                 <input type="text" class="bg-transparent text-center w-24" value="' . $row["discount"] . '" name="discount">
                             </td>
                             <td class="py-3">
-                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Change</button>
+                                <div class="grid place-items-center">
+                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Change</button>
+                                    </div>
                             </td>
                             <td class="py-3">
-                                <button type="button" onclick="window.location.assign(`partials/_deleteproduct?id=' . $row["id"] . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Delete</button>
+                                <div class="grid place-items-center">
+                                    <button type="button" onclick="window.location.assign(`partials/_deleteproduct?id=' . $row["id"] . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Delete</button>
+                                </div>
                             </td>
                             <td class="py-3">
-                                <button type="button" onclick="window.location.assign(`partials/_changeproductstatus?id=' . $row["id"] . '&status=' . $change_status_id . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">' . $change_status . '</button>
+                                <div class="grid place-items-center">
+                                    <button type="button" onclick="window.location.assign(`partials/_changeproductstatus?id=' . $row["id"] . '&status=' . $change_status_id . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">' . $change_status . '</button>
+                                </div>
                             </td>
                         </form>
                     </tr>';
@@ -299,6 +344,7 @@ include ("partials/_dbconnect.php");
             </tbody>
         </table>
     </div>
+
     <script>
         //alert
         function hideAlert(element) {

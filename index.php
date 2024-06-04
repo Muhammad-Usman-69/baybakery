@@ -94,7 +94,7 @@ session_start();
         <div class="flex scroll-container overflow-x-scroll no-scrollbar">
             <?php
             //fetching categories
-            $sql = "SELECT `name` FROM `categories`";
+            $sql = "SELECT `name` FROM `categories` WHERE `status` = 1";
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
@@ -208,7 +208,7 @@ session_start();
         <!-- categories wise products -->
         <?php
         //fetching categories
-        $sql = "SELECT `name` FROM `categories`";
+        $sql = "SELECT `name` FROM `categories` WHERE `status` = 1";
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);

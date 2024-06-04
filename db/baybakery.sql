@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2024 at 09:53 AM
+-- Generation Time: Jun 04, 2024 at 11:40 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,6 +33,13 @@ CREATE TABLE `cart` (
   `product_id` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `user_id`, `product_id`) VALUES
+('mEgqi', 'Muhammad Usman 001', 'sBmF');
+
 -- --------------------------------------------------------
 
 --
@@ -41,17 +48,18 @@ CREATE TABLE `cart` (
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
-  `name` text NOT NULL
+  `name` text NOT NULL,
+  `status` int(8) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`) VALUES
-(1, 'Bread'),
-(2, 'Cakes'),
-(3, 'Cookies');
+INSERT INTO `categories` (`id`, `name`, `status`) VALUES
+(1, 'Bread', 1),
+(2, 'Cakes', 1),
+(3, 'Cookies', 1);
 
 -- --------------------------------------------------------
 
@@ -68,7 +76,7 @@ CREATE TABLE `num` (
 --
 
 INSERT INTO `num` (`num`) VALUES
-(3);
+(4);
 
 -- --------------------------------------------------------
 
@@ -93,7 +101,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `details`, `time`, `userid`, `method`, `price`, `delivery_price`, `delivery_location`, `status`) VALUES
-('BB-2', '1x (m6F9) brown butter chocolate chip cookies (Rs. 1300) \n\n', '2024-06-04 11:26:41', 'Muhammad Usman 001', 'CashOnDelivery', '1700', '400', 'The required format parameter ', 1);
+('BB-2', '1x (m6F9) brown butter chocolate chip cookies (Rs. 1300) \n\n', '2024-06-04 11:26:41', 'muhammad usman-001', 'COD', '1700', '400', 'The required format parameter ', 0),
+('BB-4', '1x (tGO7) Black Forest Cake (Rs. 1400) \n\n', '2024-06-04 12:59:55', 'muhammad usman-001', 'COD', '7400', '400', 'usmansaleem4446996@gmail.com', 0);
 
 -- --------------------------------------------------------
 
@@ -117,7 +126,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `img`, `old_price`, `new_price`, `category`, `discount`, `status`) VALUES
-('0t2u', 'Croissants', 'https://i.imghippo.com/files/m6iKh1717301009.jpg', '899', '800', 'Bread', '11', 1),
+('0t2u', 'Croissants', 'https://i.imghippo.com/files/m6iKh1717301009.jpg', '1000', '800', 'Bread', '20', 1),
 ('AUha', 'WHOLEWHEAT CHOCOLATE COOKIES', 'https://i.imghippo.com/files/ad5wC1717300785.jpg', '1599', '1599', 'Cookies', '0', 1),
 ('lZkT', 'Mix Cookies', 'https://i.imghippo.com/files/WZwEu1717300517.jpg', '2600', '2080', 'Cookies', '20', 1),
 ('m6F9', 'brown butter chocolate chip cookies', 'https://i.imghippo.com/files/5alsk1717300358.webp', '1300', '1300', 'Cookies', '0', 1),
@@ -149,8 +158,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `number`, `password`, `admin`) VALUES
-('Muhammad Usman', 'Muhammad Usman', 'usmansaleem4446996@gmail.com', '+92 3176535345', '$2y$10$SAi1d5FCXzLoco9BGPh.VePpK8PPdo3iSEtKy/DXp.uQCpdsxW1Rq', 1),
-('Muhammad Usman 001', 'Muhammad Usman', 'mrfear4646@gmail.com', '+92 3269165351', '$2y$10$Bs.b8eyW5z4lDi8ezeIigOEA/4PfpSWrSdXWa0sgxQXtFmian0pZi', 1);
+('muhammad usman', 'Muhammad Usman', 'usmansaleem4446996@gmail.com', '+92 3176535345', '$2y$10$SAi1d5FCXzLoco9BGPh.VePpK8PPdo3iSEtKy/DXp.uQCpdsxW1Rq', 1),
+('muhammad usman-001', 'Muhammad Usman', 'mrfear4646@gmail.com', '+92 3269165351', '$2y$10$Bs.b8eyW5z4lDi8ezeIigOEA/4PfpSWrSdXWa0sgxQXtFmian0pZi', 0);
 
 -- --------------------------------------------------------
 
@@ -225,7 +234,7 @@ ALTER TABLE `verify`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
