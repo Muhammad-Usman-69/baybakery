@@ -77,7 +77,7 @@ foreach ($items as $item) {
         $title = $row["title"];
         $price = $row["new_price"];
         $id = $row["id"];
-        $details .= "($quantity)x ($id) $title (Rs. $price) \n\n";
+        $details .= "$quantity" . "x ($id) $title (Rs. $price) \n\n";
     }
 
     //removing from cart
