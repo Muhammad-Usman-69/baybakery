@@ -16,7 +16,7 @@ include ("_dbconnect.php");
 
 //taking order id
 if (!isset($_GET["name"]) || !isset($_GET["status"])) {
-    header("location: ../admin?error=Not Defined");
+    header("location: ../admin?category=1&error=Not Defined");
     exit();
 }
 
@@ -31,7 +31,7 @@ mysqli_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $num = mysqli_num_rows($result);
 if ($num == 0) {
-    header("location: /?error=Product Not Found");
+    header("location: /?category=1&error=Category Not Found");
     exit();
 }
 
@@ -48,5 +48,5 @@ mysqli_stmt_bind_param($stmt, "ss", $status, $name);
 $bool = mysqli_stmt_execute($stmt);
 
 //reedirecting for normal
-header("location: ../admin?alert=Changed Successfully");
+header("location: ../admin?category=1&alert=Changed Successfully");
 exit();

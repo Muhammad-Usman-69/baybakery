@@ -16,7 +16,7 @@ include ("_dbconnect.php");
 
 //taking order id
 if (!isset($_GET["id"]) || !isset($_GET["status"])) {
-    header("location: ../admin?error=Not Defined");
+    header("location: ../admin?user=1&error=Not Defined");
     exit();
 }
 
@@ -25,7 +25,7 @@ $status = $_GET["status"];
 
 //check if admin is doing it himself
 if ($_GET["status"] != 1 && $_GET["status"] != 0) {
-    header("location: ../admin?error=Can't Change");
+    header("location: ../admin?user=1&error=Can't Change");
     exit();
 }
 
@@ -36,6 +36,6 @@ mysqli_stmt_bind_param($stmt, "ss", $status, $id);
 $bool = mysqli_stmt_execute($stmt);
 if ($bool) {
     //reedirecting for normal
-    header("location: ../admin?alert=Changed Successfully");
+    header("location: ../admin?user=1&alert=Changed Successfully");
     exit();
 }

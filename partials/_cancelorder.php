@@ -16,7 +16,7 @@ include ("_dbconnect.php");
 
 //taking order id
 if (!isset($_GET["orderid"])) {
-    header("location: ../admin?error=Not Defined");
+    header("location: ../admin?order=1&error=Not Defined");
     exit();
 }
 
@@ -29,6 +29,6 @@ mysqli_stmt_bind_param($stmt, "s", $id);
 $bool = mysqli_stmt_execute($stmt);
 if ($bool) {
     //reedirecting for normal
-    header("location: ../admin?alert=Cancelled Successfully");
+    header("location: ../admin?order=1&alert=Cancelled Successfully");
     exit();
 }

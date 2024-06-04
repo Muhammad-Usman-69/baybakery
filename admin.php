@@ -67,14 +67,22 @@ include ("partials/_dbconnect.php");
         ?>
     </div>
     <!-- home link -->
-    <div class="m-5">
+    <div class="m-5 my-6">
         <a href="/"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
             Home
         </a>
     </div>
+
+    <!-- order button -->
+    <div class="m-5">
+        <button type="button" onclick="document.getElementById('order').classList.toggle('hidden')"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            Show Orders
+        </button>
+    </div>
     <!-- order container -->
-    <div class="m-4 p-4 bg-white rounded-md shadow-md">
+    <div class="m-4 p-4 bg-white rounded-md shadow-md hidden" id="order">
         <table class="w-full shadow-md">
             <thead>
                 <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
@@ -132,8 +140,15 @@ include ("partials/_dbconnect.php");
         </table>
     </div>
 
+    <!-- user button -->
+    <div class="m-5">
+        <button type="button" onclick="document.getElementById('user').classList.toggle('hidden')"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            Show Users
+        </button>
+    </div>
     <!-- user container -->
-    <div class="m-4 p-4 bg-white rounded-md shadow-md">
+    <div class="m-4 p-4 bg-white rounded-md shadow-md hidden" id="user">
         <table class="w-full shadow-md">
             <thead>
                 <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
@@ -190,8 +205,15 @@ include ("partials/_dbconnect.php");
         </table>
     </div>
 
+    <!-- category button -->
+    <div class="m-5">
+        <button type="button" onclick="document.getElementById('category').classList.toggle('hidden')"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            Show Categories
+        </button>
+    </div>
     <!-- category container -->
-    <div class="m-4 p-4 bg-white rounded-md shadow-md space-y-4">
+    <div class="m-4 p-4 bg-white rounded-md shadow-md space-y-4 hidden" id="category">
         <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center" action="partials/_insertcategory"
             method="post">
             <input type="text" name="name" class="bg-transparent outline-none w-full inline-block p-3"
@@ -259,8 +281,15 @@ include ("partials/_dbconnect.php");
         </table>
     </div>
 
+    <!-- product button -->
+    <div class="m-5">
+        <button type="button" onclick="document.getElementById('product').classList.toggle('hidden')"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            Show Products
+        </button>
+    </div>
     <!-- product container -->
-    <div class="m-4 p-4 bg-white rounded-md shadow-md space-y-4">
+    <div class="m-4 p-4 bg-white rounded-md shadow-md space-y-4 hidden" id="product">
         <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center" action="partials/_insertproduct"
             method="post">
             <div class="flex m-4 space-x-3">
@@ -272,7 +301,7 @@ include ("partials/_dbconnect.php");
                     required>
                 <input type="number" name="new_price" placeholder="New Price" class="bg-transparent outline-none w-24"
                     required>
-                <select name="category" class="bg-transparent outline-none min-w-40" required>
+                <select name="category" class="bg-transparent outline-none min-w-40 text-gray-400" oninput="this.style.color='black'" required>
                     <?php
                     //getting data
                     $sql = "SELECT * FROM `categories`";
@@ -383,6 +412,27 @@ include ("partials/_dbconnect.php");
             }, 200);
         }
     </script>
+
+    <?php 
+    //if redirecting to the previous page
+    if (isset($_GET["order"]) && $_GET["order"] == 1) {
+        echo '<script>
+        document.getElementById("order").classList.toggle("hidden");
+        </script>';
+    } else if (isset($_GET["user"]) && $_GET["user"] == 1) {
+        echo '<script>
+        document.getElementById("user").classList.toggle("hidden");
+        </script>';
+    } else if (isset($_GET["product"]) && $_GET["product"] == 1) {
+        echo '<script>
+        document.getElementById("product").classList.toggle("hidden");
+        </script>';
+    } else if (isset($_GET["category"]) && $_GET["category"] == 1) {
+        echo '<script>
+        document.getElementById("category").classList.toggle("hidden");
+        </script>';
+    }
+    ?>
 </body>
 
 </html>

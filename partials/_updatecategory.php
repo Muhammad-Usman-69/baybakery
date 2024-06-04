@@ -23,7 +23,7 @@ include ("_dbconnect.php");
 
 //taking name
 if (!isset($_POST["category"]) || !isset($_POST["old_name"])) {
-    header("location: ../admin?error=Not Defined");
+    header("location: ../admin?category=1&error=Not Defined");
     exit();
 }
 $name = $_POST["category"];
@@ -37,7 +37,7 @@ mysqli_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $num = mysqli_num_rows($result);
 if ($num == 0) {
-    header("location: /?error=Category Not Found");
+    header("location: /?category=1&error=Category Not Found");
     exit();
 }
 
@@ -54,5 +54,5 @@ mysqli_stmt_bind_param($stmt, "ss", $name, $old_name);
 mysqli_stmt_execute($stmt);
 
 //reedirecting for normal
-header("location: ../admin?alert=Updated Successfully");
+header("location: ../admin?category=1&alert=Updated Successfully");
 exit();

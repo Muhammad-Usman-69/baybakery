@@ -23,7 +23,7 @@ include ("_dbconnect.php");
 
 //taking name
 if (!isset($_POST["title"]) || !isset($_POST["img"]) || !isset($_POST["old_price"]) || !isset($_POST["new_price"]) || !isset($_POST["category"]) || !isset($_POST["discount"])) {
-    header("location: ../admin?error=Not Defined");
+    header("location: ../admin?product=1&error=Not Defined");
     exit();
 }
 
@@ -59,5 +59,5 @@ mysqli_stmt_bind_param($stmt, "sssiisi", $id, $title, $img, $old_price, $new_pri
 mysqli_stmt_execute($stmt);
 
 //reedirecting for normal
-header("location: ../admin?alert=Inserted Successfully");
+header("location: ../admin?product=1&alert=Inserted Successfully");
 exit();

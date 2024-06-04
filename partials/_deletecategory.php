@@ -16,7 +16,7 @@ include ("_dbconnect.php");
 
 //taking order id
 if (!isset($_GET["name"])) {
-    header("location: ../admin?error=Not Defined");
+    header("location: /admin?category=1&error=Not Defined");
     exit();
 }
 
@@ -30,7 +30,7 @@ mysqli_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $num = mysqli_num_rows($result);
 if ($num == 0) {
-    header("location: /?error=Category Not Found");
+    header("location: /admin?category=1&error=Category Not Found");
     exit();
 }
 
@@ -41,6 +41,6 @@ mysqli_stmt_bind_param($stmt, "s", $name);
 $bool = mysqli_stmt_execute($stmt);
 if ($bool) {
     //reedirecting for normal
-    header("location: ../admin?alert=Deleted Successfully");
+    header("location: ../admin?category=1&alert=Deleted Successfully");
     exit();
 }

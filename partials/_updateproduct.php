@@ -23,7 +23,7 @@ include ("_dbconnect.php");
 
 //taking id
 if (!isset($_POST["id"])) {
-    header("location: ../admin?error=Not Defined");
+    header("location: ../admin?product=1&error=Not Defined");
     exit();
 }
 
@@ -42,6 +42,6 @@ mysqli_stmt_bind_param($stmt, "sssssss", $title, $img, $old_price, $new_price, $
 $bool = mysqli_stmt_execute($stmt);
 if ($bool) {
     //reedirecting for normal
-    header("location: ../admin?alert=Updated Successfully");
+    header("location: ../admin?product=1&alert=Updated Successfully");
     exit();
 }
