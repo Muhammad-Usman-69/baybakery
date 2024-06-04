@@ -1,8 +1,8 @@
 add your name in signup {done}
 id should be name (if id is already in use then add random num to it) {done}
 change delivery charges to one {done}
-add insert, edit of product {2done}
+add insert, edit of product {done}
 add users {done}
 change order id to word-num {done}
 add thank you page {done}
-add increasing quantity funcationability
+add increasing quantity funcationability {done}

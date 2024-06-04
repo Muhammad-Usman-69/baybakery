@@ -50,6 +50,7 @@ $total = $_POST["totalprice"];
 $delivery = $_POST["delivery"];
 $location = $_POST["location"];
 $status = 0;
+$quanities = $_POST["num"];
 
 //check if no item
 if (!isset($_POST["item"])) {
@@ -60,8 +61,13 @@ if (!isset($_POST["item"])) {
 //initiaing for order detials
 $details = "";
 
+// initiating for increament
+$i = 0;
+
+
 //fetching item details
 foreach ($items as $item) {
+    $quantity = $quanities[$i];
     $sql = "SELECT * FROM `products` WHERE `id` = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "s", $item);
@@ -71,7 +77,7 @@ foreach ($items as $item) {
         $title = $row["title"];
         $price = $row["new_price"];
         $id = $row["id"];
-        $details .= "1x ($id) $title (Rs. $price) \n\n";
+        $details .= "($quantity)x ($id) $title (Rs. $price) \n\n";
     }
 
     //removing from cart
@@ -79,6 +85,7 @@ foreach ($items as $item) {
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "s", $item);
     mysqli_stmt_execute($stmt);
+    $i++;
 }
 
 //inserting order to db
