@@ -192,6 +192,13 @@ include ("partials/_dbconnect.php");
 
     <!-- category container -->
     <div class="m-4 p-4 bg-white rounded-md shadow-md space-y-4">
+        <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center" action="partials/_insertcategory"
+            method="post">
+            <input type="text" name="name" class="bg-transparent outline-none w-full inline-block p-3"
+                placeholder="Category Name" minlength="4">
+            <button type="Submit" href="/"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-3">Insert</button>
+        </form>
         <table class="w-full shadow-md">
             <thead>
                 <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
@@ -250,20 +257,39 @@ include ("partials/_dbconnect.php");
                 ?>
             </tbody>
         </table>
-        <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center" action="partials/_insertcategory" method="post">
-            <input type="text" name="name" class="bg-transparent outline-none w-full inline-block p-3" placeholder="Category Name" minlength="4">
-            <button type="Submit" href="/"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-3">Insert</button>
-        </form>
     </div>
 
-    <!-- insert category container -->
-    <!-- <div class="m-4 p-4 bg-white rounded-md shadow-md">
-        
-    </div> -->
-
     <!-- product container -->
-    <div class="m-4 p-4 bg-white rounded-md shadow-md">
+    <div class="m-4 p-4 bg-white rounded-md shadow-md space-y-4">
+        <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center" action="partials/_insertproduct"
+            method="post">
+            <div class="flex m-4 space-x-3">
+                <textarea type="text" name="title" class="bg-transparent outline-none resize-none" placeholder="Title"
+                    rows="1" minlength="10" required></textarea>
+                <textarea type="text" name="img" class="bg-transparent outline-none resize-none" placeholder="Image"
+                    rows="1" minlength="14" required></textarea>
+                <input type="number" name="old_price" placeholder="Old Price" class="bg-transparent outline-none w-24"
+                    required>
+                <input type="number" name="new_price" placeholder="New Price" class="bg-transparent outline-none w-24"
+                    required>
+                <select name="category" class="bg-transparent outline-none min-w-40" required>
+                    <?php
+                    //getting data
+                    $sql = "SELECT * FROM `categories`";
+                    $stmt = mysqli_prepare($conn, $sql);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<option value="' . $row["name"] . '">' . $row["name"] . '</option>';
+                    }
+                    ?>
+                </select>
+                <input type="number" name="discount" placeholder="Discount" class="bg-transparent outline-none w-24"
+                    required>
+            </div>
+            <button type="Submit" href="/"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-3">Insert</button>
+        </form>
         <table class="w-full shadow-md">
             <thead>
                 <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
@@ -311,16 +337,16 @@ include ("partials/_dbconnect.php");
                                 <textarea class="bg-transparent text-center resize-none" name="img">' . $row["img"] . '</textarea>
                             </td>
                             <td class="py-3">
-                                <input type="text" class="bg-transparent text-center w-24" value="' . $row["old_price"] . '" name="old_price">
+                                <input type="number" class="bg-transparent text-center w-24" value="' . $row["old_price"] . '" name="old_price">
                             </td>
                             <td class="py-3">
-                                <input type="text" class="bg-transparent text-center w-24" value="' . $row["new_price"] . '" name="new_price">
+                                <input type="number" class="bg-transparent text-center w-24" value="' . $row["new_price"] . '" name="new_price">
                             </td>
                             <td class="py-3">
                                 <input type="text" class="bg-transparent text-center w-24" value="' . $row["category"] . '" name="category">
                             </td>
                             <td class="text-center py-3">
-                                <input type="text" class="bg-transparent text-center w-24" value="' . $row["discount"] . '" name="discount">
+                                <input type="number" class="bg-transparent text-center w-24" value="' . $row["discount"] . '" name="discount">
                             </td>
                             <td class="py-3">
                                 <div class="grid place-items-center">
