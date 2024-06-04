@@ -144,7 +144,7 @@ session_start();
                 class="products grid grid-cols-1 gap-4 py-4 sm:py-5 md:py-6 lg:py-8 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-6 xl:grid-cols-5 xl:gap-10">
                 <?php
                 //fetching all products
-                $sql = "SELECT * FROM `products`";
+                $sql = "SELECT * FROM `products` WHERE `status` = 1";
                 $stmt = mysqli_prepare($conn, $sql);
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
@@ -220,7 +220,7 @@ session_start();
                 <div
                     class="category-products gap-4 grid grid-cols-1 py-4 sm:py-5 md:py-6 lg:py-8 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-8 xl:grid-cols-5 xl:gap-10">';
             //fetching all products regarding categories
-            $sql = "SELECT * FROM `products` WHERE `category` = '$category'";
+            $sql = "SELECT * FROM `products` WHERE `category` = '$category' AND `status` = 1";
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_execute($stmt);
             $result2 = mysqli_stmt_get_result($stmt);

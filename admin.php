@@ -91,24 +91,9 @@ include ("partials/_dbconnect.php");
             </thead>
             <tbody>
                 <?php
-                //getting names of column
-                $sql = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = 'orders' AND table_schema = 'baybakery'";
-                $stmt = mysqli_prepare($conn, $sql);
-                mysqli_stmt_execute($stmt);
-                $resultNames = mysqli_stmt_get_result($stmt);
-
-                //initializing array for column names
-                $arr = array();
-
-                while ($row = mysqli_fetch_assoc($resultNames)) {
-                    //pushing names to array
-                    array_push($arr, $row["COLUMN_NAME"]);
-                }
-
                 //getting data
                 $sql = "SELECT * FROM `orders`";
                 $stmt = mysqli_prepare($conn, $sql);
-                // mysqli_stmt_bind_param($stmt, "s", $id);
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
 
@@ -140,6 +125,174 @@ include ("partials/_dbconnect.php");
                         </svg>
                         </button>
                     </td>
+                    </tr>';
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- user container -->
+    <div class="m-4 p-4 bg-white rounded-md shadow-md">
+        <table class="w-full shadow-md">
+            <thead>
+                <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
+                    <th scope="col" class="p-4">User Id</th>
+                    <th scope="col" class="p-4">User Name</th>
+                    <th scope="col" class="p-4">Email</th>
+                    <th scope="col" class="p-4">Number</th>
+                    <th scope="col" class="p-4">Status</th>
+                    <th scope="col" class="p-4">Change Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+
+                //getting data
+                $sql = "SELECT * FROM `users`";
+                $stmt = mysqli_prepare($conn, $sql);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+
+                while ($row = mysqli_fetch_assoc($result)) {
+                    //checking if admin
+                    if ($row["admin"] == 1) {
+                        $status = "Admin";
+                        $change_status = "Buyer";
+                        $change_status_id = 0;
+                    } else {
+                        $status = "Buyer";
+                        $change_status = "Admin";
+                        $change_status_id = 1;
+                    }
+                    //admin can't change himself
+                    if ($_SESSION["id"] == $row["id"]) {
+                        $change_status = "Can't Change";
+                        $change_status_id = 2;
+                    }
+                    //_changeuserstatus
+                    //echoing data
+                    echo '<tr class="border-b-gray-500 border-b bg-[#F8F8F8] last:border-b-0">
+                        <td class="text-center py-3">' . $row["id"] . '</td>
+                        <td class="text-center py-3">' . $row["name"] . '</td>
+                        <td class="text-center py-3">' . $row["email"] . '</td>
+                        <td class="text-center py-3">' . $row["number"] . '</td>
+                        <td class="text-center py-3">' . $status . '</td>
+                        <td class="flex items-center justify-center py-3">
+                            <button onclick="window.location.assign(`partials/_changeuserstatus?id=' . $row["id"] . '&status=' . $change_status_id . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">
+                                ' . $change_status . '
+                            </button>
+                        </td>
+                    </tr>';
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- category container -->
+    <div class="m-4 p-4 bg-white rounded-md shadow-md">
+        <table class="w-full shadow-md">
+            <thead>
+                <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
+                    <th scope="col" class="p-4">Category Name</th>
+                    <th scope="col" class="p-4">Delete Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+
+                //getting data
+                $sql = "SELECT * FROM `categories`";
+                $stmt = mysqli_prepare($conn, $sql);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+
+                while ($row = mysqli_fetch_assoc($result)) {
+                    //_changeuserstatus
+                    //echoing data
+                    echo '<tr class="border-b-gray-500 border-b bg-[#F8F8F8] last:border-b-0">
+                        <td class="text-center py-3">' . $row["name"] . '</td>
+                        <td class="flex items-center justify-center py-3">
+                            <button onclick="window.location.assign(`partials/_deletecategory?name=' . $row["name"] . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Delete</button>
+                        </td>
+                    </tr>';
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- product container -->
+    <div class="m-4 p-4 bg-white rounded-md shadow-md">
+        <table class="w-full shadow-md">
+            <thead>
+                <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
+                    <th scope="col" class="p-4">Product Id</th>
+                    <th scope="col" class="p-4">Product Name</th>
+                    <th scope="col" class="p-4">Image</th>
+                    <th scope="col" class="p-4">Old Price</th>
+                    <th scope="col" class="p-4">New Price</th>
+                    <th scope="col" class="p-4">Category</th>
+                    <th scope="col" class="p-4">Discount</th>
+                    <th scope="col" class="p-4">Change</th>
+                    <th scope="col" class="p-4">Delete</th>
+                    <th scope="col" class="p-4">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+
+                //getting data
+                $sql = "SELECT * FROM `products`";
+                $stmt = mysqli_prepare($conn, $sql);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+
+                while ($row = mysqli_fetch_assoc($result)) {
+
+                    if ($row["status"] == 1) {
+                        $change_status = "Unactive";
+                        $change_status_id = 0;
+                    } else {
+                        $change_status = "Active";
+                        $change_status_id = 1;
+                    }
+                    //echoing data
+                    echo '<tr class="border-b-gray-500 border-b bg-[#F8F8F8] last:border-b-0">
+                        <form action="partials/_updateproduct" method="post">
+                            <td class="py-3 text-center">
+                                ' . $row["id"] . '
+                            </td>
+                            <input type="hidden" name="id" value="' . $row["id"] . '">
+                            <td class="py-3">
+                                <textarea class="bg-transparent text-center resize-none" name="title">' . $row["title"] . '</textarea>
+                                </td>
+                            <td class="py-3">
+                                <textarea class="bg-transparent text-center resize-none" name="img">' . $row["img"] . '</textarea>
+                            </td>
+                            <td class="py-3">
+                                <input type="text" class="bg-transparent text-center w-24" value="' . $row["old_price"] . '" name="old_price">
+                            </td>
+                            <td class="py-3">
+                                <input type="text" class="bg-transparent text-center w-24" value="' . $row["new_price"] . '" name="new_price">
+                            </td>
+                            <td class="py-3">
+                                <input type="text" class="bg-transparent text-center w-24" value="' . $row["category"] . '" name="category">
+                            </td>
+                            <td class="text-center py-3">
+                                <input type="text" class="bg-transparent text-center w-24" value="' . $row["discount"] . '" name="discount">
+                            </td>
+                            <td class="py-3">
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Change</button>
+                            </td>
+                            <td class="py-3">
+                                <button type="button" onclick="window.location.assign(`partials/_deleteproduct?id=' . $row["id"] . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Delete</button>
+                            </td>
+                            <td class="py-3">
+                                <button type="button" onclick="window.location.assign(`partials/_changeproductstatus?id=' . $row["id"] . '&status=' . $change_status_id . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">' . $change_status . '</button>
+                            </td>
+                        </form>
                     </tr>';
                 }
                 ?>

@@ -85,7 +85,7 @@ $id = $_GET["orderid"];
                     </button>
                     <!-- delete -->
                     <button class="py-2 px-4 rounded-md bg-blue-600 active:bg-blue-800 text-white shadow-md z-20"
-                        onclick="window.location.assign(`partials/_cancelorder?id=' . $id . '`)">Cancel</button>
+                        onclick="window.location.assign(`partials/_cancelorder?orderid=' . $id . '`)">Cancel</button>
                 </div>
             </div>';
         }

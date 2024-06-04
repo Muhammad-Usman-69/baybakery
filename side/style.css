@@ -690,6 +690,10 @@ video {
   display: block;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .flex {
   display: flex;
 }
@@ -794,6 +798,19 @@ video {
   width: 100%;
 }
 
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.w-24 {
+  width: 6rem;
+}
+
 .min-w-7 {
   min-width: 1.75rem;
 }
@@ -831,22 +848,16 @@ video {
   }
 }
 
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .animate-spin-slow {
   animation: spin 4s linear infinite;
 }
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.resize-none {
+  resize: none;
 }
 
 .scroll-m-24 {
@@ -873,6 +884,10 @@ video {
 
 .grid-cols-\[32px_1fr\] {
   grid-template-columns: 32px 1fr;
+}
+
+.flex-row {
+  flex-direction: row;
 }
 
 .flex-col {
@@ -961,6 +976,10 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .overflow-x-scroll {

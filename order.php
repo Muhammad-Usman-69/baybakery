@@ -30,10 +30,19 @@ function random_str(
     return $str;
 }
 
+//taking current order num
+$sql = "SELECT `num` FROM `num`";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$row = mysqli_fetch_assoc($result);
+$num = $row["num"];
+$order_num = $num + 1;
+
 //taking diff values//time
 date_default_timezone_set("Asia/Karachi");
-$time = date("h:i:s a");
-$order_id = random_str(12);
+$time = date("Y:m:d h:i:s a");
+$order_id = "BB-$order_num";
 $userid = $_SESSION["id"];
 $items = $_POST["item"];
 $method = $_POST["method"];
@@ -82,11 +91,16 @@ if (!$result) {
     exit();
 }
 
+//updating current order num
+$sql = "UPDATE `num` SET `num` = '$order_num' WHERE `num` = '$num';";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_execute($stmt);
+
 //creating message
 $message = "Your order has been placed\n\n" . $details . "Order ID: " . $order_id . "\nDelivery: Rs. " . $delivery . " \nTotal: Rs. " . $total . " \nPayment Method: " . $method . " \nLocation: " . $location . " \n\nThanks for shopping with us\nRegards, BayBakery";
 
 //sending message
 // include ("sms.php");
 
-header("location:/cart?alert=Your order has been placed. You will recieve a message soon");
+header("location:/thankyou?orderid=$order_id");
 exit();
