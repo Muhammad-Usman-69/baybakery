@@ -56,7 +56,7 @@ function updateTotal() {
       totalPrice += price * Number(quantity.innerHTML);
       discount += (oldPrice - price) * Number(quantity.innerHTML);
       //inserting item
-        hiddenContainerItems.innerHTML += `<input type="hidden" name="item[]" value="${value}">`;
+      hiddenContainerItems.innerHTML += `<input type="hidden" name="item[]" value="${value}">`;
       //inserting num
       hiddenContainerNums.innerHTML += `<input type="hidden" name="num[]" value="${quantity.innerHTML}">`;
     }
@@ -83,3 +83,35 @@ function updateTotal() {
     total.value = delPrice;
   });
 }
+
+let scrolling;
+
+//validing checkout
+let form = document.querySelector("#checkout");
+
+form.addEventListener("submit", (event) => {
+  //preventing submit
+  event.preventDefault();
+
+  //check payment method
+  let online = document.querySelector(".online").checked;
+
+  //if cash on delivery
+  if (!online) {
+    form.submit();
+    return;
+  }
+
+  //adding delivery
+  document.getElementById("final-checkout").classList.toggle("hidden");
+});
+
+let paymentForm = document.querySelector("#payment-form");
+
+paymentForm.addEventListener("submit", (event) => {
+  //preventing submit
+  event.preventDefault();
+
+  //submitting form
+  form.submit();
+})

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2024 at 11:40 AM
+-- Generation Time: Jun 04, 2024 at 02:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,13 +32,6 @@ CREATE TABLE `cart` (
   `user_id` varchar(50) NOT NULL,
   `product_id` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`cart_id`, `user_id`, `product_id`) VALUES
-('mEgqi', 'Muhammad Usman 001', 'sBmF');
 
 -- --------------------------------------------------------
 
@@ -76,7 +69,7 @@ CREATE TABLE `num` (
 --
 
 INSERT INTO `num` (`num`) VALUES
-(4);
+(14);
 
 -- --------------------------------------------------------
 
@@ -85,6 +78,7 @@ INSERT INTO `num` (`num`) VALUES
 --
 
 CREATE TABLE `orders` (
+  `arrange_order` int(11) NOT NULL,
   `id` varchar(12) NOT NULL,
   `details` text NOT NULL,
   `time` datetime NOT NULL,
@@ -93,16 +87,21 @@ CREATE TABLE `orders` (
   `price` text NOT NULL,
   `delivery_price` text NOT NULL,
   `delivery_location` text NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `details`, `time`, `userid`, `method`, `price`, `delivery_price`, `delivery_location`, `status`) VALUES
-('BB-2', '1x (m6F9) brown butter chocolate chip cookies (Rs. 1300) \n\n', '2024-06-04 11:26:41', 'muhammad usman-001', 'COD', '1700', '400', 'The required format parameter ', 0),
-('BB-4', '1x (tGO7) Black Forest Cake (Rs. 1400) \n\n', '2024-06-04 12:59:55', 'muhammad usman-001', 'COD', '7400', '400', 'usmansaleem4446996@gmail.com', 0);
+INSERT INTO `orders` (`arrange_order`, `id`, `details`, `time`, `userid`, `method`, `price`, `delivery_price`, `delivery_location`, `status`) VALUES
+(3, 'BB-10', '1x (tGO7) Black Forest Cake (Rs. 1400) \n\n', '2024-06-04 05:05:22', 'muhammad usman-001', 'Online', '2100', '700', 'Black Forest Cake', 0),
+(4, 'BB-11', '1x (AUha) WHOLEWHEAT CHOCOLATE COOKIES (Rs. 1599) \n\n', '2024-06-04 05:10:11', 'muhammad usman-001', 'Online', '2299', '700', 'payment-formdadw', 0),
+(5, 'BB-12', '1x (0t2u) Croissants (Rs. 800) \n\n', '2024-06-04 05:16:47', 'muhammad usman-001', 'COD', '1200', '400', 'increament1231233', 0),
+(6, 'BB-13', '1x (tGO7) Black Forest Cake (Rs. 1400) \n\n1x (sBmF) Classic White Sandwich Bread (Rs. 200) \n\n', '2024-06-04 05:20:13', 'muhammad usman-001', 'Online', '2300', '700', 'Classic White Sandwich Bread', 0),
+(126, 'BB-14', '1x (0t2u) Croissants (Rs. 800) \n\n1x (AUha) WHOLEWHEAT CHOCOLATE COOKIES (Rs. 1599) \n\n', '2024-06-04 05:23:21', 'muhammad usman-001', 'Online', '2799', '400', 'WHOLEWHEAT CHOCOLATE COOKIES', 0),
+(1, 'BB-2', '1x (m6F9) brown butter chocolate chip cookies (Rs. 1300) \n\n', '2024-06-04 11:26:41', 'muhammad usman-001', 'COD', '1700', '400', 'The required format parameter ', 0),
+(2, 'BB-7', '1x (0t2u) Croissants (Rs. 800) \n\n', '2024-06-04 03:46:54', 'muhammad usman-001', 'COD', '1200', '400', 'checkout1232455', 0);
 
 -- --------------------------------------------------------
 
@@ -206,7 +205,8 @@ ALTER TABLE `num`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `increament` (`arrange_order`);
 
 --
 -- Indexes for table `products`
@@ -234,7 +234,13 @@ ALTER TABLE `verify`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `arrange_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -273,7 +273,7 @@ if (isset($_POST["del"])) {
             <!-- checkout -->
             <div>
                 <p class="bg-gray-200 text-slate-900 font-bold text-lg p-3">Checkout</p>
-                <form action="order" class="p-4 border space-y-3" method="post">
+                <form action="order" class="p-4 border space-y-3" method="post" id="checkout">
                     <!-- delivery place -->
                     <h3 class="font-semibold"><i class="fa fa-truck text-yellow-500"></i> Delivery</h3>
                     <div action="" class="text-sm space-y-1">
@@ -297,11 +297,11 @@ if (isset($_POST["del"])) {
                     <h3 class="font-semibold"><i class="fa fa-wallet text-amber-950"></i> Payment Method</h3>
                     <div class="text-sm space-y-1">
                         <div>
-                            <input type="radio" name="method" id="op" value="Online" required>
+                            <input type="radio" name="method" class="online" id="op" value="Online" required>
                             <label for="op">Online Payment</label>
                         </div>
                         <div>
-                            <input type="radio" name="method" id="cod" value="COD" required>
+                            <input type="radio" name="method" class="offline" id="cod" value="COD" required>
                             <label for="cod">Cash On Delivery</label>
                         </div>
                     </div>
@@ -335,7 +335,7 @@ if (isset($_POST["del"])) {
                     <div class="hidden-num-inputs">
                     </div>
                     <!-- checkout -->
-                    <button type=" submit"
+                    <button type="submit"
                         class="w-full bg-blue-950 transition-all duration-200 text-yellow-300 text-sm hover:bg-gray-800 active:bg-slate-900 py-2">Proceed
                         To Checkout (<span class="totalItem">0</span>)</button>
 
@@ -423,6 +423,33 @@ if (isset($_POST["del"])) {
             <p class="text-center text-sm text-white">Copyright @ Bay Bakery 2024. All Rights Reserved</p>
         </div>
     </footer>
+
+    <!-- payment method take -->
+
+    <div class="hidden" id="final-checkout">
+        <div class="fixed inset-0 min-h-screen z-40 bg-gray-900 opacity-50"></div>
+        <div class="fixed bg-gray-50 max-w-fit max-h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 opacity-100 space-y-4 p-4">
+            <p class="text-lg text-gray-400 text-center">Choose Payment Method</p>
+            <div class="flex">
+                <button class="border active:border-blue-700 p-2 bg-white">
+                    <img src="images/jazzcash.png" class="h-16"
+                        onclick="document.getElementById('payment-form').style.display = 'block'">
+                </button>
+                <button class="border active:border-blue-700 p-2 bg-white">
+                    <img src="images/easypaisa.png" class="h-16"
+                        onclick="document.getElementById('payment-form').style.display = 'block'">
+                </button>
+            </div>
+            <form id="payment-form" class="hidden">
+                <input type="tel" class="outline-none border border-b-0 p-4 bg-white w-full"
+                    placeholder="Account Number" minlength="11" required>
+                <button type="submit"
+                    class="w-full bg-blue-950 transition-all duration-200 text-yellow-300 text-sm hover:bg-gray-800 active:bg-slate-900 py-2">Submit</button>
+            </form>
+        </div>
+    </div>
+
+
     <script>
         //alert
         function hideAlert(element) {

@@ -67,9 +67,9 @@ include ("partials/_dbconnect.php");
         ?>
     </div>
     <!-- home link -->
-    <div class="m-5 my-6">
+    <div class="m-5 my-10">
         <a href="/"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
             Home
         </a>
     </div>
@@ -100,7 +100,7 @@ include ("partials/_dbconnect.php");
             <tbody>
                 <?php
                 //getting data
-                $sql = "SELECT * FROM `orders`";
+                $sql = "SELECT * FROM `orders` ORDER BY `arrange_order` ASC";
                 $stmt = mysqli_prepare($conn, $sql);
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
