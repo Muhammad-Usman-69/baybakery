@@ -22,35 +22,25 @@ if ($_SESSION["status"] != "admin") {
 include ("_dbconnect.php");
 
 //taking name
-if (!isset($_POST["title"]) || !isset($_FILES["img"]) || !isset($_POST["old_price"]) || !isset($_POST["new_price"]) || !isset($_POST["category"]) || !isset($_POST["discount"])) {
+if (!isset($_FILES["img"]) || !isset($_POST["id"])) {
     header("location: ../admin?product=1&error=Not Defined");
     exit();
 }
 
-//str for id
-function random_str(
-    $length,
-    $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-) {
-    $str = '';
-    $max = mb_strlen($keyspace, '8bit') - 1;
-    if ($max < 1) {
-        throw new Exception('$keyspace must be at least two characters long');
-    }
-    for ($i = 0; $i < $length; ++$i) {
-        $str .= $keyspace[random_int(0, $max)];
-    }
-    return $str;
-}
+//taking id
+$id = $_POST["id"];
 
-//getting data
-$id = random_str(4);
-$title = $_POST["title"];
-// $img = $_POST["img"];
-$old_price = $_POST["old_price"];
-$new_price = $_POST["new_price"];
-$category = $_POST["category"];
-$discount = $_POST["discount"];
+//verifying if product exists
+$sql = "SELECT * FROM `products` WHERE `id` = ?";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, "s", $id);
+mysqli_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$num = mysqli_num_rows($result);
+if ($num == 0) {
+    header("location: /?product=1&error=Product Not Found");
+    exit();
+}
 
 //taking file img
 $file = $_FILES["img"];
@@ -105,12 +95,10 @@ if ($result != true) {
     exit();
 }
 
-//updating product's categories
-$sql = "INSERT INTO `products` (`id`, `title`, `img`, `old_price`, `new_price`, `category`, `discount`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+//updating
+$sql = "UPDATE `products` SET `img` = ? WHERE `id` = ?";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "sssiisi", $id, $title, $fileDest, $old_price, $new_price, $category, $discount);
+mysqli_stmt_bind_param($stmt, "ss", $fileDest, $id);
 mysqli_stmt_execute($stmt);
-
-//reedirecting for normal
-header("location: ../admin?product=1&alert=Inserted Successfully");
+header("location: ../admin?product=1&alert=Updated Successfully");
 exit();

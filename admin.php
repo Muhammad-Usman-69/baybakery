@@ -111,7 +111,8 @@ include ("partials/_dbconnect.php");
 
 
     <!-- order container -->
-    <div class="mx-4 p-4 bg-white rounded-md shadow-md container min-w-[calc(100%-32px)] max-w-[calc(100%-32px)]" id="order">
+    <div class="mx-4 p-4 bg-white rounded-md shadow-md container min-w-[calc(100%-32px)] max-w-[calc(100%-32px)]"
+        id="order">
         <table class="w-full shadow-md">
             <thead>
                 <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
@@ -170,7 +171,8 @@ include ("partials/_dbconnect.php");
     </div>
 
     <!-- user container -->
-    <div class="mx-4 p-4 bg-white rounded-md shadow-md hidden container min-w-[calc(100%-32px)] max-w-[calc(100%-32px)]" id="user">
+    <div class="mx-4 p-4 bg-white rounded-md shadow-md hidden container min-w-[calc(100%-32px)] max-w-[calc(100%-32px)]"
+        id="user">
         <table class="w-full shadow-md">
             <thead>
                 <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
@@ -228,7 +230,8 @@ include ("partials/_dbconnect.php");
     </div>
 
     <!-- category container -->
-    <div class="mx-4 p-4 bg-white rounded-md shadow-md space-y-4 hidden container min-w-[calc(100%-32px)] max-w-[calc(100%-32px)]" id="category">
+    <div class="mx-4 p-4 bg-white rounded-md shadow-md space-y-4 hidden container min-w-[calc(100%-32px)] max-w-[calc(100%-32px)]"
+        id="category">
         <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center" action="partials/_insertcategory"
             method="post">
             <input type="text" name="name" class="bg-transparent outline-none w-full inline-block p-3"
@@ -298,13 +301,15 @@ include ("partials/_dbconnect.php");
 
     <!-- product container -->
     <!-- partials/_insertproduct -->
-    <div class="mx-4 p-4 bg-white rounded-md shadow-md space-y-4 hidden container min-w-[calc(100%-32px)] max-w-[calc(100%-32px)]" id="product">
+    <div class="mx-4 p-4 bg-white rounded-md shadow-md space-y-4 hidden container min-w-[calc(100%-32px)] max-w-[calc(100%-32px)]"
+        id="product">
         <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center" action="partials/_insertproduct"
             method="post" enctype="multipart/form-data">
             <div class="flex m-4 space-x-3">
-                <textarea name="title" class="bg-transparent outline-none resize-none" placeholder="Title"
-                    rows="1" minlength="10" required></textarea>
-                <input type="file" accept="image/*" name="img" class="bg-transparent outline-none text-gray-400" oninput="this.style.color='black'" value="image" required>
+                <textarea name="title" class="bg-transparent outline-none resize-none" placeholder="Title" rows="1"
+                    minlength="10" required></textarea>
+                <input type="file" accept="image/*" name="img" class="bg-transparent outline-none text-gray-400"
+                    oninput="this.style.color='black'" value="image" required>
                 <input type="number" name="old_price" placeholder="Old Price" class="bg-transparent outline-none w-24"
                     required>
                 <input type="number" name="new_price" placeholder="New Price" class="bg-transparent outline-none w-24"
@@ -383,7 +388,8 @@ include ("partials/_dbconnect.php");
                                 <textarea class="bg-transparent max-w-40 text-center resize-none" name="title">' . $row["title"] . '</textarea>
                                 </td>
                             <td class="py-3">
-                                <textarea class="bg-transparent max-w-40 text-center resize-none" name="img">' . $row["img"] . '</textarea>
+                                <label class="bg-transparent outline-none cursor-pointer text-center w-full inline-block" for="' . $row["id"] . '">Upload</label>
+                                
                             </td>
                             <td class="py-3 w-24">
                                 <input type="number" class="bg-transparent text-center w-full" value="' . $row["old_price"] . '" name="old_price">
@@ -419,12 +425,17 @@ include ("partials/_dbconnect.php");
                             </td>
                         </form>
                     </tr>';
+
+                    //printing forms for image
+                    echo '<form action="partials/_uploadimg" method="post" class="' . $row["id"] . '" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="' . $row["id"] . '" >
+                        <input type="file" accept="image/*" name="img" class="bg-transparent outline-none text-gray-400 hidden" id="' . $row["id"] . '" oninput="document.querySelector(`.' . $row["id"] . '`).submit()" name="image" required />
+                    </form>';
                 }
                 ?>
             </tbody>
         </table>
     </div>
-
     <script>
         //alert
         function hideAlert(element) {

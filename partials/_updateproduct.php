@@ -29,16 +29,14 @@ if (!isset($_POST["id"])) {
 
 $id = $_POST["id"];
 $title = $_POST["title"];
-$img = $_POST["img"];
 $old_price = $_POST["old_price"];
 $new_price = $_POST["new_price"];
 $category = $_POST["category"];
 $discount = $_POST["discount"];
 
-//verify if product exist
-$sql = "UPDATE `products` SET `title` = ?, `img` = ?, `old_price` = ?, `new_price` = ?, `category` = ?, `discount` = ? WHERE `id` = ?";
+$sql = "UPDATE `products` SET `title` = ?, `old_price` = ?, `new_price` = ?, `category` = ?, `discount` = ? WHERE `id` = ?";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "sssssss", $title, $img, $old_price, $new_price, $category, $discount, $id);
+mysqli_stmt_bind_param($stmt, "ssssss", $title, $old_price, $new_price, $category, $discount, $id);
 $bool = mysqli_stmt_execute($stmt);
 if ($bool) {
     //reedirecting for normal
