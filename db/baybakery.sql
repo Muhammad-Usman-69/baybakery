@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2024 at 12:40 PM
+-- Generation Time: Jun 05, 2024 at 01:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,6 +32,13 @@ CREATE TABLE `cart` (
   `user_id` varchar(50) NOT NULL,
   `product_id` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `user_id`, `product_id`) VALUES
+('cyTD8', 'muhammadusman001', 'IUKV');
 
 -- --------------------------------------------------------
 
@@ -122,6 +129,7 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id`, `title`, `img`, `old_price`, `new_price`, `category`, `discount`, `status`, `feature`) VALUES
 ('0t2u', 'Croissants', 'https://i.imghippo.com/files/m6iKh1717301009.jpg', '1000', '800', 'Bread', '20', 1, 1),
 ('AUha', 'WHOLEWHEAT CHOCOLATE COOKIES', 'https://i.imghippo.com/files/ad5wC1717300785.jpg', '1599', '1599', 'Cookies', '0', 1, 1),
+('IUKV', 'WHOLEWHEAT CHOCOLATE COOKIES', '../images/products/6660462ecbd168.87984576.jpg', '12', '12', 'Cakes', '0', 1, 0),
 ('lZkT', 'Mix Cookies', 'https://i.imghippo.com/files/WZwEu1717300517.jpg', '2600', '2080', 'Cookies', '20', 1, 0),
 ('m6F9', 'brown butter chocolate chip cookies', 'https://i.imghippo.com/files/5alsk1717300358.webp', '1300', '1300', 'Cookies', '0', 1, 1),
 ('M9dz', 'Soft Frosted Sugar Cookies', 'https://i.imghippo.com/files/useZS1717300610.jpg', '1998', '1899', 'Cookies', '4.5', 1, 0),

@@ -297,14 +297,14 @@ include ("partials/_dbconnect.php");
     </div>
 
     <!-- product container -->
+    <!-- partials/_insertproduct -->
     <div class="mx-4 p-4 bg-white rounded-md shadow-md space-y-4 hidden container min-w-[calc(100%-32px)] max-w-[calc(100%-32px)]" id="product">
         <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center" action="partials/_insertproduct"
-            method="post">
+            method="post" enctype="multipart/form-data">
             <div class="flex m-4 space-x-3">
-                <textarea type="text" name="title" class="bg-transparent outline-none resize-none" placeholder="Title"
+                <textarea name="title" class="bg-transparent outline-none resize-none" placeholder="Title"
                     rows="1" minlength="10" required></textarea>
-                <textarea type="text" name="img" class="bg-transparent outline-none resize-none" placeholder="Image"
-                    rows="1" minlength="14" required></textarea>
+                <input type="file" accept="image/*" name="img" class="bg-transparent outline-none text-gray-400" oninput="this.style.color='black'" value="image" required>
                 <input type="number" name="old_price" placeholder="Old Price" class="bg-transparent outline-none w-24"
                     required>
                 <input type="number" name="new_price" placeholder="New Price" class="bg-transparent outline-none w-24"
@@ -334,10 +334,10 @@ include ("partials/_dbconnect.php");
                     <th scope="col" class="p-4">Product Id</th>
                     <th scope="col" class="p-4">Product Name</th>
                     <th scope="col" class="p-4">Image</th>
-                    <th scope="col" class w-full">Old Price</th>
-                    <th scope="col" class w-full">New Price</th>
-                    <th scope="col" class w-full">Category</th>
-                    <th scope="col" class w-full">Discount</th>
+                    <th scope="col" class="p-4">Old Price</th>
+                    <th scope="col" class="p-4">New Price</th>
+                    <th scope="col" class="p-4">Category</th>
+                    <th scope="col" class="p-4">Discount</th>
                     <th scope="col" class="p-4">Change</th>
                     <th scope="col" class="p-4">Delete</th>
                     <th scope="col" class="p-4">Status</th>
