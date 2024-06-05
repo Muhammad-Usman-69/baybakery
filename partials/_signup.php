@@ -29,7 +29,8 @@ $name = $_POST["name"];
 $email = $_POST["email"];
 $number = $_POST["number"];
 $pass = $_POST["password"];
-$id = strtolower($name);
+$unfiltered_id = strtolower($name);
+$id = str_replace(" ", "", $unfiltered_id);
 
 //check if name is in use
 $sql = "SELECT * FROM `users` WHERE `name` = ?";
@@ -39,7 +40,7 @@ mysqli_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $num = mysqli_num_rows($result);
 if ($num != 0) {
-    $id = $name . "-" . random_str(3);
+    $id = $id . random_str(3);
 }
 
 if (substr($number, 0, 3) != "+92") {

@@ -334,13 +334,14 @@ include ("partials/_dbconnect.php");
                     <th scope="col" class="p-4">Product Id</th>
                     <th scope="col" class="p-4">Product Name</th>
                     <th scope="col" class="p-4">Image</th>
-                    <th scope="col" class="p-4">Old Price</th>
-                    <th scope="col" class="p-4">New Price</th>
-                    <th scope="col" class="p-4">Category</th>
-                    <th scope="col" class="p-4">Discount</th>
+                    <th scope="col" class w-full">Old Price</th>
+                    <th scope="col" class w-full">New Price</th>
+                    <th scope="col" class w-full">Category</th>
+                    <th scope="col" class w-full">Discount</th>
                     <th scope="col" class="p-4">Change</th>
                     <th scope="col" class="p-4">Delete</th>
                     <th scope="col" class="p-4">Status</th>
+                    <th scope="col" class="p-4">Feature</th>
                 </tr>
             </thead>
             <tbody>
@@ -361,6 +362,16 @@ include ("partials/_dbconnect.php");
                         $change_status = "Active";
                         $change_status_id = 1;
                     }
+
+                    //checking for feature
+                    if ($row["feature"] == 1) {
+                        $change_feature = "Unfeature";
+                        $change_feature_id = 0;
+                    } else {
+                        $change_feature = "Feature";
+                        $change_feature_id = 1;
+                    }
+
                     //echoing data
                     echo '<tr class="border-b-gray-500 border-b bg-[#F8F8F8] last:border-b-0">
                         <form action="partials/_updateproduct" method="post">
@@ -369,22 +380,22 @@ include ("partials/_dbconnect.php");
                             </td>
                             <input type="hidden" name="id" value="' . $row["id"] . '">
                             <td class="py-3">
-                                <textarea class="bg-transparent text-center resize-none" name="title">' . $row["title"] . '</textarea>
+                                <textarea class="bg-transparent max-w-40 text-center resize-none" name="title">' . $row["title"] . '</textarea>
                                 </td>
                             <td class="py-3">
-                                <textarea class="bg-transparent text-center resize-none" name="img">' . $row["img"] . '</textarea>
+                                <textarea class="bg-transparent max-w-40 text-center resize-none" name="img">' . $row["img"] . '</textarea>
                             </td>
-                            <td class="py-3">
-                                <input type="number" class="bg-transparent text-center w-24" value="' . $row["old_price"] . '" name="old_price">
+                            <td class="py-3 w-24">
+                                <input type="number" class="bg-transparent text-center w-full" value="' . $row["old_price"] . '" name="old_price">
                             </td>
-                            <td class="py-3">
-                                <input type="number" class="bg-transparent text-center w-24" value="' . $row["new_price"] . '" name="new_price">
+                            <td class="py-3 w-24">
+                                <input type="number" class="bg-transparent text-center w-full" value="' . $row["new_price"] . '" name="new_price">
                             </td>
-                            <td class="py-3">
-                                <input type="text" class="bg-transparent text-center w-24" value="' . $row["category"] . '" name="category">
+                            <td class="py-3 w-24">
+                                <input type="text" class="bg-transparent text-center w-full" value="' . $row["category"] . '" name="category">
                             </td>
-                            <td class="text-center py-3">
-                                <input type="number" class="bg-transparent text-center w-24" value="' . $row["discount"] . '" name="discount">
+                            <td class="py-3 w-24">
+                                <input type="number" class="bg-transparent text-center w-full" value="' . $row["discount"] . '" name="discount">
                             </td>
                             <td class="py-3">
                                 <div class="grid place-items-center">
@@ -399,6 +410,11 @@ include ("partials/_dbconnect.php");
                             <td class="py-3">
                                 <div class="grid place-items-center">
                                     <button type="button" onclick="window.location.assign(`partials/_changeproductstatus?id=' . $row["id"] . '&status=' . $change_status_id . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">' . $change_status . '</button>
+                                </div>
+                            </td>
+                            <td class="py-3">
+                                <div class="grid place-items-center">
+                                    <button type="button" onclick="window.location.assign(`partials/_changeproductfeature?id=' . $row["id"] . '&feature=' . $change_feature_id . '`)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center">' . $change_feature . '</button>
                                 </div>
                             </td>
                         </form>

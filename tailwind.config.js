@@ -3,15 +3,8 @@ module.exports = {
   content: ["*.php", "partials/_email.php"],
   theme: {
     extend: {
-      maxHeight: {
-        31: "7.75rem",
-        34: "8.5rem",
-        18: "4.5rem",
-      },
       minHeight: {
-        31: "7.75rem",
-        34: "8.5rem",
-        18: "4.5rem",
+        27: "6.75rem",
       },
       animation: {
         'spin-slow': 'spin 4s linear infinite',

@@ -10,6 +10,15 @@
   font-variation-settings: "wdth" 100;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .inset-0 {
   inset: 0px;
 }

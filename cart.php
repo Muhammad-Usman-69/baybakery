@@ -121,68 +121,74 @@ if (isset($_POST["del"])) {
         ?>
     </div>
     <!-- header -->
-    <header class="min-h-18">
-        <nav class="bg-white max-h-18 w-full z-10 flex justify-between items-center transition-all duration-300">
-            <!-- main -->
-            <div class="h-full grid place-items-center pl-5 py-2">
-                <a href="/" class="flex items-center space-x-1 w-full">
-                    <img src="images/logo-bg.png" class="w-14 rounded-full">
-                    <span>Bay Bakery</span>
-                </a>
-            </div>
-            <div class="mr-5 flex justify-center items-center space-x-4 lg:col-span-1 bg-transparent">
-                <!-- account cart -->
-                <a href="cart">
-                    <img src="images/shopping-cart.png" class="w-7">
-                </a>
-                <?php
-                if (isset($_SESSION["logged"]) && $_SESSION["logged"] == true) {
-                    $link = "logout";
-                } else {
-                    $link = "login";
-                }
-                if (isset($_SESSION["status"]) && $_SESSION["status"] == "admin") {
-                    echo '<a href="admin">
-                        <img src="images/support.png" class="w-7">
-                    </a>';
-                } else {
-                    echo '
+    <header class="min-h-27">
+        <nav class="bg-white w-full z-10 transition-all duration-300">
+            <div class=" flex justify-between items-center">
+                <!-- main -->
+                <div class="h-full grid place-items-center pl-5 py-2">
+                    <a href="/" class="flex items-center space-x-1 w-full">
+                        <img src="images/logo-bg.png" class="w-14 rounded-full">
+                        <span>Bay Bakery</span>
+                    </a>
+                </div>
+                <div class="mr-5 flex justify-center items-center space-x-4 lg:col-span-1 bg-transparent">
                     <a href="cart">
                         <img src="images/shopping-cart.png" class="w-7">
+                    </a>
+
+                    <!-- account cart -->
+                    <?php
+                    if (isset($_SESSION["logged"]) && $_SESSION["logged"] == true) {
+                        //changing panel name
+                        if (isset($_SESSION["status"]) && $_SESSION["status"] == "admin") {
+                            $panel = "admin";
+                        } else {
+                            $panel = "user";
+                        }
+
+                        echo '<a href="' . $panel . '">
+                        <img src="images/support.png" class="w-7">
                     </a>';
-                }
-                echo '<a href="' . $link . '">
+
+                        $link = "logout";
+                    } else {
+                        $link = "login";
+                    }
+
+
+                    echo '<a href="' . $link . '">
                         <img src="images/user.png" class="w-7">
                     </a>';
-                ?>
+                    ?>
+
+                </div>
+            </div>
+            <!-- categories -->
+            <div class="flex overflow-x-scroll scroll-smooth no-scrollbar bg-blue-950 relative">
+                <div class="min-w-7 nav-scroller" onmousedown="scrollLeftNav(1)" onmouseup="scrollLeftNav(0)">
+                    <img src="images/carousel/left-arrow.png"
+                        class="h-9 absolute left-0 bg-blue-950 transition-all duration-200 hover:bg-yellow-400 active:bg-yellow-500 border-gray-700 border-r cursor-pointer p-1">
+                </div>
+                <div class="flex scroll-container overflow-x-scroll no-scrollbar category-container">
+                    <?php
+                    //fetching categories
+                    $sql = "SELECT `name` FROM `categories` WHERE `status` = 1";
+                    $stmt = mysqli_prepare($conn, $sql);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<a href="/#' . $row["name"] . '"
+                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">' . $row["name"] . '</a>';
+                    }
+                    ?>
+                </div>
+                <div class="min-w-7 nav-scroller" onmousedown="scrollRightNav(1)" onmouseup="scrollRightNav(0)">
+                    <img src="images/carousel/right-arrow.png"
+                        class="h-9 absolute right-0 bg-blue-950 transition-all duration-200 hover:bg-yellow-400 active:bg-yellow-500 border-gray-700 border-l cursor-pointer p-1">
+                </div>
             </div>
         </nav>
     </header>
-    <hr>
-    <!-- categories -->
-    <div class="flex overflow-x-scroll scroll-smooth no-scrollbar bg-blue-950 relative">
-        <div class="min-w-7" onmousedown="scrollLeftNav(1)" onmouseup="scrollLeftNav(0)">
-            <img src="images/carousel/left-arrow.png"
-                class="h-9 absolute left-0 bg-blue-950 transition-all duration-200 hover:bg-yellow-400 active:bg-yellow-500 border-gray-700 border-r cursor-pointer p-1">
-        </div>
-        <div class="flex scroll-container overflow-x-scroll no-scrollbar">
-            <?php
-            //fetching categories
-            $sql = "SELECT `name` FROM `categories` WHERE `status` = 1";
-            $stmt = mysqli_prepare($conn, $sql);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<a href="/#' . $row["name"] . '"
-                class="p-2 text-sm text-white bg-blue-950 transition-all duration-200 hover:bg-yellow-400 hover:text-black border-gray-700 border-r last:border-r-0">' . $row["name"] . '</a>';
-            }
-            ?>
-        </div>
-        <div class="min-w-7" onmousedown="scrollRightNav(1)" onmouseup="scrollRightNav(0)">
-            <img src="images/carousel/right-arrow.png"
-                class="h-9 absolute right-0 bg-blue-950 transition-all duration-200 hover:bg-yellow-400 active:bg-yellow-500 border-gray-700 border-l cursor-pointer p-1">
-        </div>
-    </div>
     <!-- cart container -->
     <div class="m-5">
         <!-- breadcrumb -->
@@ -433,7 +439,8 @@ if (isset($_POST["del"])) {
 
     <div class="hidden" id="final-checkout">
         <div class="fixed inset-0 min-h-screen z-40 bg-gray-900 opacity-50"></div>
-        <div class="fixed bg-gray-50 max-w-fit max-h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 opacity-100 space-y-4 p-4">
+        <div
+            class="fixed bg-gray-50 max-w-fit max-h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 opacity-100 space-y-4 p-4">
             <p class="text-lg text-gray-400 text-center">Choose Payment Method</p>
             <div class="flex">
                 <button class="border active:border-blue-700 p-2 bg-white">

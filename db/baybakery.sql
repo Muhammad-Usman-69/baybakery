@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2024 at 02:26 PM
+-- Generation Time: Jun 05, 2024 at 12:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -69,7 +69,7 @@ CREATE TABLE `num` (
 --
 
 INSERT INTO `num` (`num`) VALUES
-(14);
+(19);
 
 -- --------------------------------------------------------
 
@@ -95,13 +95,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`arrange_order`, `id`, `details`, `time`, `userid`, `method`, `price`, `delivery_price`, `delivery_location`, `status`) VALUES
-(3, 'BB-10', '1x (tGO7) Black Forest Cake (Rs. 1400) \n\n', '2024-06-04 05:05:22', 'muhammad usman-001', 'Online', '2100', '700', 'Black Forest Cake', 0),
-(4, 'BB-11', '1x (AUha) WHOLEWHEAT CHOCOLATE COOKIES (Rs. 1599) \n\n', '2024-06-04 05:10:11', 'muhammad usman-001', 'Online', '2299', '700', 'payment-formdadw', 0),
-(5, 'BB-12', '1x (0t2u) Croissants (Rs. 800) \n\n', '2024-06-04 05:16:47', 'muhammad usman-001', 'COD', '1200', '400', 'increament1231233', 0),
-(6, 'BB-13', '1x (tGO7) Black Forest Cake (Rs. 1400) \n\n1x (sBmF) Classic White Sandwich Bread (Rs. 200) \n\n', '2024-06-04 05:20:13', 'muhammad usman-001', 'Online', '2300', '700', 'Classic White Sandwich Bread', 0),
-(126, 'BB-14', '1x (0t2u) Croissants (Rs. 800) \n\n1x (AUha) WHOLEWHEAT CHOCOLATE COOKIES (Rs. 1599) \n\n', '2024-06-04 05:23:21', 'muhammad usman-001', 'Online', '2799', '400', 'WHOLEWHEAT CHOCOLATE COOKIES', 0),
-(1, 'BB-2', '1x (m6F9) brown butter chocolate chip cookies (Rs. 1300) \n\n', '2024-06-04 11:26:41', 'muhammad usman-001', 'COD', '1700', '400', 'The required format parameter ', 0),
-(2, 'BB-7', '1x (0t2u) Croissants (Rs. 800) \n\n', '2024-06-04 03:46:54', 'muhammad usman-001', 'COD', '1200', '400', 'checkout1232455', 0);
+(131, 'BB-19', '4x (tGO7) Black Forest Cake (Rs. 1400) \n\n', '2024-06-05 02:44:43', 'muhammadusman443', 'Online', '6000', '400', 'Black Forest Cake', 0);
 
 -- --------------------------------------------------------
 
@@ -117,25 +111,26 @@ CREATE TABLE `products` (
   `new_price` text NOT NULL,
   `category` text NOT NULL,
   `discount` text NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1
+  `status` int(11) NOT NULL DEFAULT 1,
+  `feature` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `title`, `img`, `old_price`, `new_price`, `category`, `discount`, `status`) VALUES
-('0t2u', 'Croissants', 'https://i.imghippo.com/files/m6iKh1717301009.jpg', '1000', '800', 'Bread', '20', 1),
-('AUha', 'WHOLEWHEAT CHOCOLATE COOKIES', 'https://i.imghippo.com/files/ad5wC1717300785.jpg', '1599', '1599', 'Cookies', '0', 1),
-('lZkT', 'Mix Cookies', 'https://i.imghippo.com/files/WZwEu1717300517.jpg', '2600', '2080', 'Cookies', '20', 1),
-('m6F9', 'brown butter chocolate chip cookies', 'https://i.imghippo.com/files/5alsk1717300358.webp', '1300', '1300', 'Cookies', '0', 1),
-('M9dz', 'Soft Frosted Sugar Cookies', 'https://i.imghippo.com/files/useZS1717300610.jpg', '1998', '1899', 'Cookies', '4.5', 1),
-('otSp', 'Soft Bread Machine Garlic Breadsticks Recipe', 'https://i.imghippo.com/files/k42CF1717301446.jpg', '699', '499', 'Bread', '28', 1),
-('RYZb', 'Moist Chocolate Cake', 'https://i.imghippo.com/files/Weidu1717302905.jpg', '3900', '3900', 'Cakes', '0', 1),
-('sBmF', 'Classic White Sandwich Bread', 'https://i.imghippo.com/files/1d0p81717301273.webp', '240', '200', 'Bread', '16', 1),
-('tGO7', 'Black Forest Cake', 'https://i.imghippo.com/files/AAG9P1717302953.jpg', '1600', '1400', 'Cakes', '12', 1),
-('xUMn', 'No Knead Whole Wheat Bread', 'https://i.imghippo.com/files/1fUDq1717301367.jpg', '499', '499', 'Bread', '0', 1),
-('zNQe', 'Birthday Calendar Cake', 'https://i.imghippo.com/files/gIbqP1717302840.jpg', '3500', '3500', 'Cakes', '0', 1);
+INSERT INTO `products` (`id`, `title`, `img`, `old_price`, `new_price`, `category`, `discount`, `status`, `feature`) VALUES
+('0t2u', 'Croissants', 'https://i.imghippo.com/files/m6iKh1717301009.jpg', '1000', '800', 'Bread', '20', 1, 1),
+('AUha', 'WHOLEWHEAT CHOCOLATE COOKIES', 'https://i.imghippo.com/files/ad5wC1717300785.jpg', '1599', '1599', 'Cookies', '0', 1, 1),
+('lZkT', 'Mix Cookies', 'https://i.imghippo.com/files/WZwEu1717300517.jpg', '2600', '2080', 'Cookies', '20', 1, 0),
+('m6F9', 'brown butter chocolate chip cookies', 'https://i.imghippo.com/files/5alsk1717300358.webp', '1300', '1300', 'Cookies', '0', 1, 1),
+('M9dz', 'Soft Frosted Sugar Cookies', 'https://i.imghippo.com/files/useZS1717300610.jpg', '1998', '1899', 'Cookies', '4.5', 1, 0),
+('otSp', 'Soft Bread Machine Garlic Breadsticks Recipe', 'https://i.imghippo.com/files/k42CF1717301446.jpg', '699', '499', 'Bread', '28', 1, 1),
+('RYZb', 'Moist Chocolate Cake', 'https://i.imghippo.com/files/Weidu1717302905.jpg', '3900', '3900', 'Cakes', '0', 1, 0),
+('sBmF', 'Classic White Sandwich Bread', 'https://i.imghippo.com/files/1d0p81717301273.webp', '240', '200', 'Bread', '16', 1, 1),
+('tGO7', 'Black Forest Cake', 'https://i.imghippo.com/files/AAG9P1717302953.jpg', '1600', '1400', 'Cakes', '12', 1, 0),
+('xUMn', 'No Knead Whole Wheat Bread', 'https://i.imghippo.com/files/1fUDq1717301367.jpg', '499', '499', 'Bread', '0', 1, 1),
+('zNQe', 'Birthday Calendar Cake', 'https://i.imghippo.com/files/gIbqP1717302840.jpg', '3500', '3500', 'Cakes', '0', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -157,8 +152,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `number`, `password`, `admin`) VALUES
-('muhammad usman', 'Muhammad Usman', 'usmansaleem4446996@gmail.com', '+92 3176535345', '$2y$10$SAi1d5FCXzLoco9BGPh.VePpK8PPdo3iSEtKy/DXp.uQCpdsxW1Rq', 1),
-('muhammad usman-001', 'Muhammad Usman', 'mrfear4646@gmail.com', '+92 3269165351', '$2y$10$Bs.b8eyW5z4lDi8ezeIigOEA/4PfpSWrSdXWa0sgxQXtFmian0pZi', 0);
+('muhammadusman', 'Muhammad Usman', 'usmansaleem4446996@gmail.com', '+92 3176535345', '$2y$10$SAi1d5FCXzLoco9BGPh.VePpK8PPdo3iSEtKy/DXp.uQCpdsxW1Rq', 1),
+('muhammadusman001', 'Muhammad Usman', 'mrfear4646@gmail.com', '+92 3269165351', '$2y$10$Bs.b8eyW5z4lDi8ezeIigOEA/4PfpSWrSdXWa0sgxQXtFmian0pZi', 0),
+('muhammadusman443', 'Muhammad Usman', 'lubivuty@molecule.ink', '+92 1312312312', '$2y$10$C.4jEnCuWOSTyB4j8rjLwOvF5um3kRsG1FxWlOmEZeGhBJMdsF8RC', 0);
 
 -- --------------------------------------------------------
 
@@ -176,8 +172,9 @@ CREATE TABLE `verify` (
 --
 
 INSERT INTO `verify` (`id`, `code`) VALUES
-('Muhammad Usman', ''),
-('Muhammad Usman 001', '');
+('muhammadusman', ''),
+('muhammadusman001', ''),
+('muhammadusman443', '');
 
 --
 -- Indexes for dumped tables
@@ -240,7 +237,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `arrange_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `arrange_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
