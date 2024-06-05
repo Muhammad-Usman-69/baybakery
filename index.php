@@ -62,25 +62,35 @@ session_start();
                 </a>
             </div>
             <div class="mr-5 flex justify-center items-center space-x-4 lg:col-span-1 bg-transparent">
-                <!-- account cart -->
                 <a href="cart">
                     <img src="images/shopping-cart.png" class="w-7">
                 </a>
+
+                <!-- account cart -->
                 <?php
                 if (isset($_SESSION["logged"]) && $_SESSION["logged"] == true) {
+                    //changing panel name
+                    if (isset($_SESSION["status"]) && $_SESSION["status"] == "admin") {
+                        $panel = "admin";
+                    } else {
+                        $panel = "user";
+                    }
+
+                    echo '<a href="' . $panel . '">
+                        <img src="images/support.png" class="w-7">
+                    </a>';
+                    
                     $link = "logout";
                 } else {
                     $link = "login";
                 }
+
+
                 echo '<a href="' . $link . '">
                         <img src="images/user.png" class="w-7">
                     </a>';
-                if (isset($_SESSION["status"]) && $_SESSION["status"] == "admin") {
-                    echo '<a href="admin">
-                        <img src="images/support.png" class="w-7">
-                    </a>';
-                }
                 ?>
+
             </div>
         </nav>
     </header>

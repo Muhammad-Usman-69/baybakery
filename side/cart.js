@@ -114,4 +114,6 @@ paymentForm.addEventListener("submit", (event) => {
 
   //submitting form
   form.submit();
-})
+});
+
+

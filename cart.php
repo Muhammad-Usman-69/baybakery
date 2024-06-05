@@ -80,7 +80,7 @@ if (isset($_POST["del"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="side/style.css" rel="stylesheet">
     <link rel="shortcut icon" href="images/logo.jfif" type="image/x-icon">
-    <title>Shopping Cart - XYZ - Ecommerce Pakistan</title>
+    <title>Shopping Cart - BayBakery - Ecommerce Pakistan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap" rel="stylesheet">
@@ -141,14 +141,19 @@ if (isset($_POST["del"])) {
                 } else {
                     $link = "login";
                 }
-                echo '<a href="' . $link . '">
-                    <img src="images/user.png" class="w-7">
-                </a>';
                 if (isset($_SESSION["status"]) && $_SESSION["status"] == "admin") {
                     echo '<a href="admin">
                         <img src="images/support.png" class="w-7">
                     </a>';
+                } else {
+                    echo '
+                    <a href="cart">
+                        <img src="images/shopping-cart.png" class="w-7">
+                    </a>';
                 }
+                echo '<a href="' . $link . '">
+                        <img src="images/user.png" class="w-7">
+                    </a>';
                 ?>
             </div>
         </nav>
@@ -441,7 +446,7 @@ if (isset($_POST["del"])) {
                 </button>
             </div>
             <form id="payment-form" class="hidden">
-                <input type="tel" class="outline-none border border-b-0 p-4 bg-white w-full"
+                <input type="number" class="outline-none border border-b-0 p-4 bg-white w-full"
                     placeholder="Account Number" minlength="11" required>
                 <button type="submit"
                     class="w-full bg-blue-950 transition-all duration-200 text-yellow-300 text-sm hover:bg-gray-800 active:bg-slate-900 py-2">Submit</button>
