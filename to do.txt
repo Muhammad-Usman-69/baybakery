@@ -1,3 +1,0 @@
-add featured function {done}
-make nav sticky {done}
-ad img upload system {done}

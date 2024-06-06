@@ -356,55 +356,50 @@ if (isset($_POST["del"])) {
     </div>
     <!-- footer -->
     <footer class="bg-blue-950 mt-auto">
-        <!-- social email -->
-        <div class="py-5 grid gap-4">
-            <div class="social flex justify-center space-x-3">
-                <a href="/">
-                    <img src="images/facebook.png" class="w-9 h-9" alt="">
-                </a>
-                <a href="/">
-                    <img src="images/instagram.png" class="w-9 h-9" alt="">
-                </a>
-                <a href="/">
-                    <img src="images/whatsapp.png" class="w-9 h-9" alt="">
-                </a>
-            </div>
-            <div class="email">
-                <p class="capitalize text-center text-white text-sm">sign up to get latest sale <b>updates</b></p>
-                <form action="" class="flex items-center justify-center py-2 rounded-sm text-sm">
-                    <input type="search" name="e" id="e" placeholder="Enter Your Email"
-                        class="outline-none border-none px-2 py-2 w-48 placeholder:italic" autocomplete="off">
-                    <input type="submit" value="Submit"
-                        class="bg-yellow-400 cursor-pointer px-2 py-2 hover:bg-yellow-300 active:bg-yellow-500">
-                </form>
-            </div>
-        </div>
-        <hr class="mx-5">
-        <div class="grid grid-cols-1 md:grid-cols-3">
-            <!-- products accounts -->
-            <div class="px-5 py-5 text-white grid grid-cols-2 place-items-center md:col-span-2">
-                <div>
-                    <p class="font-semibold text-lg">PRODUCTS</p>
-                    <div class="product-categories py-3 space-y-1 flex flex-col">
-                        <?php
-                        //fetching categories
-                        $sql = "SELECT `name` FROM `categories`";
-                        $stmt = mysqli_prepare($conn, $sql);
-                        mysqli_stmt_execute($stmt);
-                        $result = mysqli_stmt_get_result($stmt);
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $name = $row["name"];
-                            echo '<a href="#' . $name . '" class="text-sm hover:underline">' . $name . '</a>';
-                        }
-                        ?>
-                    </div>
+        <div class="grid grid-cols-1 md:grid-cols-4">
+            <!-- socials -->
+            <div class="px-5 py-5 text-white md:flex md:flex-col">
+                <div class="product-categories space-y-2 flex flex-col">
+                    <p class="font-semibold text-lg mb-3">SOCIALS</p>
+                    <a href="/" class="flex items-center space-x-2">
+                        <img src="images/facebook.png" class="w-7 h-7" alt="">
+                        <span class="text-sm">Facebook</span>
+                    </a>
+                    <a href="/" class="flex items-center space-x-2">
+                        <img src="images/instagram.png" class="w-7 h-7" alt="">
+                        <span class="text-sm">Instagram</span>
+                    </a>
+                    <a href="/" class="flex items-center space-x-2">
+                        <img src="images/whatsapp.png" class="w-7 h-7" alt="">
+                        <span class="text-sm">Whatsapp</span>
+                    </a>
                 </div>
-                <div>
-                    <p class="font-semibold text-lg">ACCOUNT</p>
-                    <div class="product-categories py-3 space-y-1 flex flex-col">
-                        <a href="signup" class="text-sm hover:underline">Sign Up</a>
-                        <a href="cart" class="text-sm hover:underline">Shopping Cart</a>
-                    </div>
+            </div>
+            <hr class="mx-5 md:hidden">
+            <!-- products accounts -->
+            <div class="px-5 py-5 text-white md:flex md:flex-col">
+                <div class="product-categories space-y-1 flex flex-col">
+                    <p class="font-semibold text-lg mb-3">PRODUCTS</p>
+                    <?php
+                    //fetching categories
+                    $sql = "SELECT `name` FROM `categories`";
+                    $stmt = mysqli_prepare($conn, $sql);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $name = $row["name"];
+                        echo '<a href="#' . $name . '" class="text-sm hover:underline">' . $name . '</a>';
+                    }
+                    ?>
+                </div>
+            </div>
+            <hr class="mx-5 md:hidden">
+            <div class="px-5 py-5 text-white md:flex md:flex-col">
+                <div class="product-categories space-y-1 flex flex-col">
+                    <p class="font-semibold text-lg mb-3">ACCOUNT</p>
+                    <a href="signup" class="text-sm hover:underline">Sign Up</a>
+                    <a href="cart" class="text-sm hover:underline">Shopping Cart</a>
+                    <a href="user" class="text-sm hover:underline">User Panel</a>
                 </div>
             </div>
             <hr class="mx-5 md:hidden">
