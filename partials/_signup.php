@@ -80,7 +80,7 @@ if ($num != 0) {
 
 //inserting accont to db
 $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
-$pass = htmlspecialchars($pass, ENT_QUOTES, 'UTF-8');
+$name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
 $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
 $sql = "INSERT INTO `users` (`id`, `name`, `email`, `number`, `password`) VALUES (?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($conn, $sql);

@@ -140,16 +140,20 @@ $id = $row["id"];
 
         //not showing errors
         $mail->SMTPDebug = false;
-        $mail->do_debug = 0;
 
         // Content
         $mail->isHTML(true); // Set email format to HTML
         $mail->Subject = 'Reset Password';
-        $mail->Body = 'Change password through following link: 
-        <a href="192.168.18.172/partials/_changepass?verificationcode=' . $code . '&email=' . $email . '&password=' . $pass . '">Verify</a>';
+        $mail->Body = 'Click to confirm: 
+        <form action="https://baybakery.000.pe/partials/_changepass" method="post">
+            <input type="hidden" name="email" value="' . $email . '">
+            <input type="hidden" name="password" value="' . $pass . '">
+            <input type="hidden" name="verificationcode" value="' . $code . '">
+            <button style="color: #15c; cursor: pointer;" type="submit">Confirm</button>
+        </form>';
 
         // Send email
-        $r = $mail->send();
+        $mail->send();
 
         //updating id
         $sql = "UPDATE `verify` SET `code` = ? WHERE `id` = ?";

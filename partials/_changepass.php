@@ -1,9 +1,9 @@
 <?php
 
 //taking email and pass
-$email = $_GET["email"];
-$pass = $_GET["password"];
-$code = $_GET["verificationcode"];
+$email = $_POST["email"];
+$pass = $_POST["password"];
+$code = $_POST["verificationcode"];
 
 //checking if email and pass are empty
 if ($email == "" || $pass == "" || $code = "") {
@@ -39,9 +39,7 @@ $result = mysqli_stmt_get_result($stmt);
 $num = mysqli_num_rows($result);
 $row = mysqli_fetch_assoc($result);
 
-$boll = version_compare($code, $row["code"]);
-if (!$boll) {
-    echo "code me masla ha";
+if ($code != $row["code"]) {
     header("location: /?error=Invalid code");
     exit();
 }
